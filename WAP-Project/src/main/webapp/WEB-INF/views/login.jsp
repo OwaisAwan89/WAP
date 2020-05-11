@@ -46,7 +46,7 @@
                                 <hr>
 
                                 <div class="text-center">
-                                    <a class="small" href="register.html">Create an Account!</a>
+                                    <a class="small" href="register">Create an Account!</a>
                                 </div>
                             </div>
                         </div>
@@ -60,6 +60,7 @@
 
 </div>
 
+<!-- Bootstrap core JavaScript-->
 <script src="<%=application.getContextPath() %>/js/jquery.min.js"></script>
 <script src="<%=application.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
 
