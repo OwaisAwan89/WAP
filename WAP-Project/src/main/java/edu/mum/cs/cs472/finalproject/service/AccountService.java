@@ -1,22 +1,21 @@
 package edu.mum.cs.cs472.finalproject.service;
 
 import edu.mum.cs.cs472.finalproject.model.Account;
-import edu.mum.cs.cs472.finalproject.model.User;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class UserService {
-    private UserService userService;
-    private UserService() {
+public class AccountService {
+    static private AccountService accountService;
+    private AccountService() {
 
     }
 
-    public UserService getInstance() {
-        if(userService == null) {
-            userService = new UserService();
+    static public AccountService getInstance() {
+        if(accountService == null) {
+            accountService = new AccountService();
         }
-        return userService;
+        return accountService;
     }
 
     public List<Account> getAccountsByUserId(int userId) {
