@@ -96,6 +96,12 @@
       <span>Transaction History</span></a>
   </li>
 
+  <li class="nav-item">
+    <a class="nav-link" href="transfer">
+      <i class="fas fa-fw fa-table"></i>
+      <span>Transfer money</span></a>
+  </li>
+
   <!-- Divider -->
   <hr class="sidebar-divider d-none d-md-block">
 
