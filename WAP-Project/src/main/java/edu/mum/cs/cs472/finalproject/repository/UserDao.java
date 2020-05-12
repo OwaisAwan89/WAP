@@ -12,21 +12,23 @@ import java.util.List;
 
 public class UserDao {
 
-    public void saveUser(User user) {
+    public boolean saveUser(User user) {
         Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session registerSession = HibernateUtil.getSessionFactory().openSession()) {
             // start a transaction
-            transaction = session.beginTransaction();
+            transaction = registerSession.beginTransaction();
             // save the student object
-            session.save(user);
+            registerSession.save(user);
             // commit transaction
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             e.printStackTrace();
         }
+        return false;
     }
 
     public User getUser(String userName) {
