@@ -1,5 +1,12 @@
 package edu.mum.cs.cs472.finalproject.controller;
 
+import edu.mum.cs.cs472.finalproject.model.Account;
+import edu.mum.cs.cs472.finalproject.model.TransactionSummary;
+import edu.mum.cs.cs472.finalproject.model.User;
+import edu.mum.cs.cs472.finalproject.repository.AccountDao;
+import edu.mum.cs.cs472.finalproject.repository.TransactionSummaryDao;
+import edu.mum.cs.cs472.finalproject.repository.UserDao;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +16,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @WebServlet(
         description = "LoginController",
@@ -17,12 +25,26 @@ import java.util.Date;
         })
 public class HomeController extends HttpServlet {
 
+    private TransactionSummaryDao transactionSummaryDao;
+    private UserDao loginDao;
+    private AccountDao accountDao;
+    public void init() {
+        loginDao = new UserDao();
+        transactionSummaryDao = new TransactionSummaryDao();
+        accountDao=new AccountDao();
+    }
+
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        String userIdAttribute = (String) request.getAttribute("userId");
+        System.out.println("userIdAttribute =>"+userIdAttribute);
+//        int userId =Integer.parseInt(userIdAttribute);
+        int userId =1;
         int [] debitData= new int[12];
         int [] creditData=  new int[12];
 
@@ -30,7 +52,9 @@ public class HomeController extends HttpServlet {
         int year = cal.get(Calendar.YEAR);
         cal.clear();
         cal.set(Calendar.YEAR, year);
-
+        int totalDebit=0;
+        int billPaymentTotal = 0,fundTransferTotal = 0,otherSpendingTotal =0;
+        
         for (int currentMonth = 0; currentMonth < 12; currentMonth++) {
 
             cal.set(Calendar.MONTH, currentMonth);
@@ -42,22 +66,56 @@ public class HomeController extends HttpServlet {
             //last day
             cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
             Date lastDay = cal.getTime();
+            int totalCurrentMonthDebit=0;int totalCurrentMonthCredit=0;
+            List<TransactionSummary> transactionHistoryCredit= transactionSummaryDao.getTransactionSummary(firstDay,lastDay,userId,"credit");
+            for (TransactionSummary history :transactionHistoryCredit) {
 
-            debitData[currentMonth]=currentMonth;
-            creditData[currentMonth]=12-currentMonth;
+                if(history.getTransactionDesc().equalsIgnoreCase("bill payment")){
+                    billPaymentTotal   +=history.getAmount();
+                }else if(history.getTransactionDesc().equalsIgnoreCase("fund transfer")){
+                    fundTransferTotal +=history.getAmount();
+                }else{
+                    otherSpendingTotal+=history.getAmount();
+                }
+
+                totalCurrentMonthCredit+=history.getAmount();
+            }
+
+            List<TransactionSummary> transactionHistory= transactionSummaryDao.getTransactionSummary(firstDay,lastDay,userId,"debit");
+            for (TransactionSummary history :transactionHistory) {
+                totalCurrentMonthDebit+=history.getAmount();
+                totalDebit+=history.getAmount();
+                System.out.println("totalDebit 11 =>"+totalDebit);
+            }
+            debitData[currentMonth]=totalCurrentMonthDebit;
+            creditData[currentMonth]=totalCurrentMonthCredit;
         }
 
         request.setAttribute("debitData", debitData);
         request.setAttribute("creditData", creditData);
+        
+        List<Account> accounts =accountDao.getAccounts(userId);
+        int totalDebitAmount=0;
+        for (Account account :accounts) {
+            totalDebitAmount+=account.getBalance();
+        }
+        System.out.println("totalDebitAmount =>"+totalDebitAmount);
+        System.out.println("totalDebit =>"+totalDebit);
+        totalDebitAmount+=totalDebit;
+        System.out.println("totalDebitAmount =>"+totalDebitAmount);
+        System.out.println("billPaymentTotal =>"+billPaymentTotal);
+        System.out.println("fundTransferTotal =>"+fundTransferTotal);
+        System.out.println("otherSpendingTotal =>"+otherSpendingTotal);
 
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
-        float billPaymentPerc = (12 * 100.0f) / 50;
+
+        float billPaymentPerc = (billPaymentTotal * 100.0f) / totalDebitAmount;
         billPaymentPerc = Float.valueOf(decimalFormat.format(billPaymentPerc));
 
-        float fundTransferPerc = (18* 100.0f) / 50;
+        float fundTransferPerc = (fundTransferTotal* 100.0f) / totalDebitAmount;
         fundTransferPerc = Float.valueOf(decimalFormat.format(fundTransferPerc));
 
-        float otherSpendingPerc = (20 * 100.0f) / 50;
+        float otherSpendingPerc = (otherSpendingTotal * 100.0f) / totalDebitAmount;
         otherSpendingPerc = Float.valueOf(decimalFormat.format(otherSpendingPerc));
 
         float [] pieChartData= {fundTransferPerc, billPaymentPerc ,otherSpendingPerc};
