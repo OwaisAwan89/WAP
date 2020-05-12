@@ -31,6 +31,39 @@ public class UserDao {
         return false;
     }
 
+    public User getUser(String userName) {
+        User user = null;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+
+            String hql = "from User U WHERE U.username = :userName";
+            Query query = session.createQuery(hql);
+            query.setParameter("userName", userName);
+            user = (User)  query.uniqueResult();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    public User getUserbyId(int userId) {
+        User user = null;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+
+            String hql = "from User U WHERE U.id = :userId";
+            Query query = session.createQuery(hql);
+            query.setParameter("userId", userId);
+            user = (User)  query.uniqueResult();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+
     public boolean validate(String userName, String password) {
 
         Transaction transaction = null;
