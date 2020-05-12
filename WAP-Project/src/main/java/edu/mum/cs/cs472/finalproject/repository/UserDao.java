@@ -1,10 +1,14 @@
 package edu.mum.cs.cs472.finalproject.repository;
 
 import edu.mum.cs.cs472.finalproject.dbConnection.HibernateUtil;
+import edu.mum.cs.cs472.finalproject.model.Account;
 import edu.mum.cs.cs472.finalproject.model.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
+
+import java.util.List;
 
 public class UserDao {
 
@@ -80,5 +84,26 @@ public class UserDao {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public User getUserById(int userId) {
+        Transaction transaction = null;
+        User user = null;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String sql = "select * from User U WHERE U.id = :userId";
+
+            NativeQuery query = session.createSQLQuery(sql);
+            query.setParameter("userId", userId);
+            query.addEntity(User.class);
+            user = (User)  query.uniqueResult();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+
+        return user;
     }
 }

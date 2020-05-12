@@ -91,9 +91,15 @@
 
     <!-- Nav Item - Tables -->
   <li class="nav-item">
-    <a class="nav-link" href="tables.html">
+    <a class="nav-link" href="history">
       <i class="fas fa-fw fa-table"></i>
       <span>Transaction History</span></a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="transfer">
+      <i class="fas fa-fw fa-table"></i>
+      <span>Transfer money</span></a>
   </li>
 
   <!-- Divider -->

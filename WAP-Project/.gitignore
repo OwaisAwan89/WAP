@@ -2,6 +2,7 @@
 .idea/**/
 out/
 .settings/
+target/
 
 *.iml
 *.iws
