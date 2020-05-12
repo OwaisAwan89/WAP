@@ -14,6 +14,9 @@ public class FundTransferDao {
 
     public boolean saveFundTransfer(FundTransfer fundTransfer) {
         Transaction transaction = null;
+        if(fundTransfer.getFromAccount() == fundTransfer.getToAccount())
+            return  false;
+
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
 

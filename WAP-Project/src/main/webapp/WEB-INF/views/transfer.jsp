@@ -60,7 +60,7 @@
                     <hr/>
                     <div style="text-align: center;">
                         <button type="reset" class="btn btn-warning">Reset</button>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Transfer money</button>
                     </div>
                 </form>
 
@@ -157,11 +157,20 @@
             let amount = $("#amount").val();
 
             if(from === "") {
-                alert("Please select your account");
+                Swal.fire("Please select your account");
                 return;
             }
             if(to === "") {
-                alert("Please select target account");
+                Swal.fire("Please select target account");
+                return;
+            }
+
+            if(from === to) {
+                Swal.fire("You cannot transfer money to a same account");
+                return;
+            }
+            if(parseFloat(amount) <= 0 ) {
+                Swal.fire("Please input currect amount");
                 return;
             }
 
@@ -182,11 +191,11 @@
                     $("#to").val("");
                     $("#amount").val("");
                 } else {
-                    alert(data.msg);
+                    Swal.fire(data.msg);
                 }
 
             }).fail(function () {
-
+                Swal.fire("Network error, please try again later");
             });
         });
 

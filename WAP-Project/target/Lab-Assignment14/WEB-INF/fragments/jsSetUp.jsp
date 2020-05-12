@@ -23,3 +23,6 @@
 <!-- Page level custom scripts -->
 <script src="<%=application.getContextPath() %>/js/chart-area-demo.js"></script>
 <script src="<%=application.getContextPath() %>/js/chart-pie-demo.js"></script>
+
+<!-- Alert and message box -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
