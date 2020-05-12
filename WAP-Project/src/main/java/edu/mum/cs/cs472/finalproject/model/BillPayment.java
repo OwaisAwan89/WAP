@@ -15,6 +15,9 @@ public class BillPayment implements Serializable {
     @Column(name = "bill_Company")
     private String billCompany;
 
+    @Column(name = "bill_number")
+    private String billNumber;
+
     public double getBillAmount() {
         return billAmount;
     }
@@ -23,15 +26,23 @@ public class BillPayment implements Serializable {
         this.billAmount = billAmount;
     }
 
-    @Column(name = "bill_number")
-    private String billNumber;
-
     @Column(name = "bill_amount")
     private double billAmount;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public long getAccount_number() {
+        return account_number;
+    }
+
+    public void setAccount_number(long account_number) {
+        this.account_number = account_number;
+    }
+
+    @Column(name = "account_number")
+    private long account_number;
 
     public int getId() {
         return id;
@@ -57,12 +68,7 @@ public class BillPayment implements Serializable {
         this.billNumber = billNumber;
     }
 
-    public User getUser() {
-        return user;
-    }
-
     public void setUser(User user) {
         this.user = user;
     }
-
 }

@@ -13,6 +13,10 @@ public class Account implements Serializable {
     @Column(name = "account_number", updatable = false, nullable = false)
     private long accountNumber;
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @ManyToOne
     @JoinColumn(name = "user_id", foreignKey=@ForeignKey(name="id"))
     private User user;

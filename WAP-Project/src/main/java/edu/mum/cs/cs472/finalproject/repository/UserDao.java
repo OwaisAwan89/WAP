@@ -12,16 +12,6 @@ import java.util.List;
 
 public class UserDao {
 
-    public User getUserById(int user_id) {
-        try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            User userFromDB = (User) session.get(User.class, user_id);
-            return userFromDB;
-        } catch (Exception e) {
-        }
-        return null;
-    }
-
     public boolean saveUser(User user) {
         Transaction transaction = null;
         try (Session registerSession = HibernateUtil.getSessionFactory().openSession()) {

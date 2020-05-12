@@ -102,8 +102,11 @@
       <span>Transfer money</span></a>
   </li>
 
-  <!-- Divider -->
-  <hr class="sidebar-divider d-none d-md-block">
+  <li class="nav-item">
+    <a class="nav-link" href="billPay">
+      <i class="fas fa-fw fa-table"></i>
+      <span>Bill Pay</span></a>
+  </li>
 
   <!-- Nav Item - Charts -->
   <li class="nav-item">

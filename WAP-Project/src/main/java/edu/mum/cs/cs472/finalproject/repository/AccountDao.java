@@ -2,31 +2,15 @@ package edu.mum.cs.cs472.finalproject.repository;
 
 import edu.mum.cs.cs472.finalproject.dbConnection.HibernateUtil;
 import edu.mum.cs.cs472.finalproject.model.Account;
-import edu.mum.cs.cs472.finalproject.model.BillPayment;
-import edu.mum.cs.cs472.finalproject.model.User;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 
 
 public class AccountDao {
-
-    public Account getAccountByUserId(int user_id) {
-        try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            Account accountFromDB = (Account) session.get(Account.class, user_id);
-            return accountFromDB;
-        } catch (Exception e) {
-        }
-        return null;
-    }
 
     public boolean saveAccount(Account account) {
         Transaction transaction = null;
@@ -56,6 +40,7 @@ public class AccountDao {
         } catch (Exception e) {
         }
     }
+
     public List<Account> getAccounts(int userId) {
         Transaction transaction = null;
         List<Account> accounts = null;

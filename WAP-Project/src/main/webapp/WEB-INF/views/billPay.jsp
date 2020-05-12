@@ -52,19 +52,23 @@
                     <!-- Card Content - Collapse -->
                     <div class="collapse" id="collapseCardExample1">
                         <div class="card-body">
-                            Water Inc. - Wells Fargo Bank. Account Number: B1801111555.
-                            <br>
-                            $ 5
-                            <input id="waterBill" type="hidden" value="5" name="waterBill">
-                            <form method="POST" action="billPay" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            Water Incorporation
+                            <br> BENEFICIARY BANK: Wells Fargo Bank
+                            <br> BENEFICIARY ACCOUNT NUMBER: B1801111555
+                            <br><br>
+
+                            <form class="user" method="POST" action="billPay">
                                 <div class="input-group">
+
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button" name="payWaterBill">
-                                            <i class="fas fa-search fa-sm"></i>
-                                        </button>
+                                        <input type="text" name ="billNumber" class="form-control bg-light border-0 small" placeholder="Enter bill Number" aria-label="Search" aria-describedby="basic-addon2">
+                                            <button class="btn btn-primary btn-user btn-block">Generate Bill</button>
                                     </div>
+
                                 </div>
                             </form>
+                            <p style="visibility: hidden">$5.00 <button class="btn btn-primary" type="button"></button></p>
+
                         </div>
                     </div>
                 </div>

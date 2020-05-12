@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 public class BillPaymentDao {
 
-    public void saveBillPayment(BillPayment billPayment) {
+    public void pay(BillPayment billPayment) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // start a transaction
@@ -29,5 +29,4 @@ public class BillPaymentDao {
             e.printStackTrace();
         }
     }
-
 }

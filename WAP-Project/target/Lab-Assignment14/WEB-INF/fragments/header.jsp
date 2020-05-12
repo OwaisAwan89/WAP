@@ -91,13 +91,22 @@
 
     <!-- Nav Item - Tables -->
   <li class="nav-item">
-    <a class="nav-link" href="tables.html">
+    <a class="nav-link" href="history">
       <i class="fas fa-fw fa-table"></i>
       <span>Transaction History</span></a>
   </li>
 
-  <!-- Divider -->
-  <hr class="sidebar-divider d-none d-md-block">
+  <li class="nav-item">
+    <a class="nav-link" href="transfer">
+      <i class="fas fa-fw fa-table"></i>
+      <span>Transfer money</span></a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="billPay">
+      <i class="fas fa-fw fa-table"></i>
+      <span>Bill Pay</span></a>
+  </li>
 
   <!-- Nav Item - Charts -->
   <li class="nav-item">

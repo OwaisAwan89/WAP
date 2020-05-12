@@ -9,6 +9,8 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.servlet.http.HttpServletRequest;
@@ -62,8 +64,8 @@ public class RegisterController extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(request, response);
         }
 
-        String bankAccountNumber = request.getParameter("bankAccountNumber");
-        if (bankAccountNumber == "" || bankAccountNumber == null) {
+        String ssnNumber = request.getParameter("ssnNumber");
+        if (ssnNumber == "" || ssnNumber == null) {
             // go back to the form page
             String errMsg = "<span style='color:red'>Your First Name is required</span>";
             request.setAttribute("errMsg", errMsg);
@@ -88,32 +90,26 @@ public class RegisterController extends HttpServlet {
         newUser.setLastName(request.getParameter("lastName"));
         newUser.setEmail(request.getParameter("inputEmail"));
         newUser.setPassword(request.getParameter("inputPassword"));
-        newUser.setAccountNumber(request.getParameter("bankAccountNumber"));
+        newUser.setAccountNumber(request.getParameter("ssnNumber"));
         newUser.setUsername(request.getParameter("userName"));
-
         UserDao userDao = new UserDao();
-        if (userDao.saveUser(newUser)) {
-            response.sendRedirect("home");
-        } else {
-            request.setAttribute("response",false);
+        userDao.saveUser(newUser);
 
-            request.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(request, response);
-        }
-
+        // Create 1, 2, or 3 accounts for a single user.
         Account newAccount = new Account();
-        newAccount.setAccountType("SAVINGS");
-        newAccount.setBalance(ThreadLocalRandom.current().nextInt(5000,10000));
-        newAccount.setAccountTitle("account-"+request.getParameter("firstName")+request.getParameter("lastName"));
-        newAccount.setUser(newUser);
-
-        AccountDao userAccount = new AccountDao();
-        if (userAccount.saveAccount(newAccount)) {
-            response.sendRedirect("home");
-        } else {
-            request.setAttribute("response",false);
-            request.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(request, response);
+        int random1To3 = ThreadLocalRandom.current().nextInt(1,3);
+        String[] accountTypeList = new String[] {"SAVINGS", "CHECKING", "RETIREMENT"};
+        for(int i=0; i<random1To3; i++){
+            // Create in series - SAVINS, CHECKING, RETIREMENT account for a single user.
+            newAccount.setAccountType(accountTypeList[i]);
+            newAccount.setBalance(ThreadLocalRandom.current().nextInt(5000,10000));
+            // Account title = account type + name
+            newAccount.setAccountTitle(accountTypeList[i]+request.getParameter("firstName")+request.getParameter("lastName"));
+            newAccount.setUser(newUser);
+            AccountDao accountDao = new AccountDao();
+            accountDao.saveAccount(newAccount);
         }
-
+        response.sendRedirect("home");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

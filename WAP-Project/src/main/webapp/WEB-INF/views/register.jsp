@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-user" id="bankAccountNumber" name="bankAccountNumber" placeholder="Account Number. Fo ex: DPQXXXXXXX">
+                                <input type="text" class="form-control form-control-user" id="ssnNumber" name="ssnNumber" placeholder="SSN Number. Fo ex: 981-876-4758">
                             </div>
                             <button class="btn btn-primary btn-user btn-block">Register Account</button>
                         </form>
