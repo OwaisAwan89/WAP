@@ -53,8 +53,13 @@
                                     <input type="text" class="form-control form-control-user" id="lastName" name="lastName" placeholder="Last Name">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <input type="email" class="form-control form-control-user" id="inputEmail" name="inputEmail" placeholder="Email Address">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="email" class="form-control form-control-user" id="inputEmail" name="inputEmail" placeholder="Email Address">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="username" class="form-control form-control-user" id="userName" name="userName" placeholder="Username">
+                                </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
@@ -65,21 +70,11 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-user" id="bankAccountNumber" name="bankAccountNumber" placeholder="Email Address">
+                                <input type="text" class="form-control form-control-user" id="bankAccountNumber" name="bankAccountNumber" placeholder="Account Number. Fo ex: DPQXXXXXXX">
                             </div>
                             <button class="btn btn-primary btn-user btn-block">Register Account</button>
-                            <hr>
-                            <a href="index" class="btn btn-google btn-user btn-block">
-                                <i class="fab fa-google fa-fw"></i> Register with Google
-                            </a>
-                            <a href="home" class="btn btn-facebook btn-user btn-block">
-                                <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                            </a>
                         </form>
                         <hr>
-                        <div class="text-center">
-                            <a class="small" href="forgot-password.html">Forgot Password?</a>
-                        </div>
                         <div class="text-center">
                             <a class="small" href="login">Already have an account? Login!</a>
                         </div>

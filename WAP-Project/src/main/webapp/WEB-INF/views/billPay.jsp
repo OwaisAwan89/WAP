@@ -47,16 +47,19 @@
                 <div class="card shadow mb-4">
                     <!-- Card Header - Accordion -->
                     <a href="#collapseCardExample1" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-controls="collapseCardExample">
-                        <h6 class="m-0 font-weight-bold text-primary">Water Bill</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Water Bill </h6>
                     </a>
                     <!-- Card Content - Collapse -->
                     <div class="collapse" id="collapseCardExample1">
                         <div class="card-body">
+                            Water Inc. - Wells Fargo Bank. Account Number: B1801111555.
+                            <br>
                             $ 5
-                            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            <input id="waterBill" type="hidden" value="5" name="waterBill">
+                            <form method="POST" action="billPay" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                                 <div class="input-group">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button">
+                                        <button class="btn btn-primary" type="button" name="payWaterBill">
                                             <i class="fas fa-search fa-sm"></i>
                                         </button>
                                     </div>
@@ -81,7 +84,7 @@
                             <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                                 <div class="input-group">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button">
+                                        <button class="btn btn-primary" type="button" name="payElecBill">
                                             <i class="fas fa-search fa-sm"></i>
                                         </button>
                                     </div>
@@ -106,7 +109,7 @@
                             <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                                 <div class="input-group">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button">
+                                        <button class="btn btn-primary" type="button" name="payCreditCardBill">
                                             <i class="fas fa-search fa-sm"></i>
                                         </button>
                                     </div>

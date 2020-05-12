@@ -13,7 +13,17 @@ import java.io.Serializable;
 
 public class AccountDao {
 
-    public void saveAccount(Account account) {
+    public Account getAccountByUserId(int user_id) {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            Account accountFromDB = (Account) session.get(Account.class, user_id);
+            return accountFromDB;
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public boolean saveAccount(Account account) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // start a transaction
@@ -22,12 +32,23 @@ public class AccountDao {
             session.save(account);
             // commit transaction
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             e.printStackTrace();
         }
+        return false;
     }
 
+    public void deduct(int billAmount, Account thisAccount) {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            Transaction transaction = session.beginTransaction();
+            double balance = thisAccount.getBalance() - billAmount;
+            session.update(balance);
+        } catch (Exception e) {
+        }
+    }
 }

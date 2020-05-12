@@ -71,7 +71,7 @@ public class LoginController extends HttpServlet {
 //			loginDao.saveUser(newUser);
 			response.sendRedirect("home");
 
-		}else {
+		} else {
 //			throw new Exception("Login not successful..");
 			request.setAttribute("response",false);
 			request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);

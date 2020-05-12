@@ -14,7 +14,7 @@ public class Account implements Serializable {
     private long accountNumber;
 
     @JoinColumn(name = "user_id")
-    private User user;
+    private int user;
 
     @Column(name = "balance")
     private double balance;
@@ -24,6 +24,14 @@ public class Account implements Serializable {
 
     @Column(name = "account_type")
     private String accountType;
+
+    public int getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user.getId();
+    }
 
     public Long getAccountNumber() {
         return accountNumber;

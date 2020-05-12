@@ -1,14 +1,18 @@
 package edu.mum.cs.cs472.finalproject.controller;
 
+import edu.mum.cs.cs472.finalproject.model.Account;
+import edu.mum.cs.cs472.finalproject.model.User;
+import edu.mum.cs.cs472.finalproject.repository.AccountDao;
+import edu.mum.cs.cs472.finalproject.repository.UserDao;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
+import java.io.IOException;
+import java.util.concurrent.ThreadLocalRandom;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.text.DecimalFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 @WebServlet(
         description = "LoginController",
@@ -68,7 +72,48 @@ public class RegisterController extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(request, response);
         }
 
-        response.sendRedirect("home");
+        try {
+            register(request, response);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    private void register(HttpServletRequest request, HttpServletResponse response)
+        throws Exception {
+
+        User newUser = new User();
+        newUser.setFirstName(request.getParameter("firstName"));
+        newUser.setLastName(request.getParameter("lastName"));
+        newUser.setEmail(request.getParameter("inputEmail"));
+        newUser.setPassword(request.getParameter("inputPassword"));
+        newUser.setAccountNumber(request.getParameter("bankAccountNumber"));
+        newUser.setUsername(request.getParameter("userName"));
+
+        UserDao userDao = new UserDao();
+        if (userDao.saveUser(newUser)) {
+            response.sendRedirect("home");
+        } else {
+            request.setAttribute("response",false);
+
+            request.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(request, response);
+        }
+
+        Account newAccount = new Account();
+        newAccount.setAccountType("SAVINGS");
+        newAccount.setBalance(ThreadLocalRandom.current().nextInt(5000,10000));
+        newAccount.setAccountTitle("account-"+request.getParameter("firstName")+request.getParameter("lastName"));
+        newAccount.setUser(newUser);
+
+        AccountDao userAccount = new AccountDao();
+        if (userAccount.saveAccount(newAccount)) {
+            response.sendRedirect("home");
+        } else {
+            request.setAttribute("response",false);
+            request.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(request, response);
+        }
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
