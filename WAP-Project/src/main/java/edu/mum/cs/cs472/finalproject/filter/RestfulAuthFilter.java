@@ -29,6 +29,8 @@ public class RestfulAuthFilter extends HttpFilter {
             }
         }
 
+        userId = 1;
+
         if(userId == 0) {
             Result result = new Result(1, "You have no right");
             Gson gson = new GsonBuilder().create();

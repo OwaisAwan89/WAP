@@ -9,7 +9,7 @@ import java.util.Date;
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column(name = "from")
     private long from;
@@ -32,7 +32,7 @@ public class Transaction {
     @Column(name = "createTime")
     private Date createTime;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

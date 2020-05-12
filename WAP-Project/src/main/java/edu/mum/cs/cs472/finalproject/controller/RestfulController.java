@@ -8,6 +8,7 @@ import edu.mum.cs.cs472.finalproject.model.Account;
 import edu.mum.cs.cs472.finalproject.service.AccountService;
 import edu.mum.cs.cs472.finalproject.service.TransactionService;
 
+import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +21,8 @@ import static java.lang.Integer.parseInt;
 
 
 
-@WebServlet(description = "Restful service controller", urlPatterns = {"/api/accounts", "/api/transfer", "/api/deposit", "/api/withdraw"})
+@WebServlet(description = "Restful service controller", urlPatterns = {"/api/accounts", "/api/transfer", "/api/deposit",
+        "/api/withdraw", "/api/histories"})
 public class RestfulController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,6 +30,9 @@ public class RestfulController extends HttpServlet {
         switch (path) {
             case "/api/accounts":
                 getAccounts(req, resp);
+                break;
+            case "/api/histories":
+                getHistories(req, resp);
                 break;
             default:
                 resp.sendError(404);
@@ -37,7 +42,7 @@ public class RestfulController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String path = req.getPathInfo();
+        String path = req.getServletPath();
         switch (path) {
             case "/api/transfer":
                 transfer(req, resp);
@@ -87,6 +92,10 @@ public class RestfulController extends HttpServlet {
         resp.setContentType("application/json; charset=utf-8");
         resp.setCharacterEncoding("UTF-8");
         resp.getWriter().append(json);
+    }
+
+    private void getHistories(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
     }
 
 }

@@ -1,3 +1,6 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -27,6 +30,16 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Transaction History</h1>
+
+            <form class="form-inline float-right">
+                <label class="my-1 mr-2" for="account">Account:</label>
+                <select class="custom-select my-1 mr-sm-2" id="account">
+                    <option selected>Choose your account</option>
+                    <option value="1111111">One</option>
+                    <option value="2222222">Two</option>
+                    <option value="3333333">Three</option>
+                </select>
+            </form>
         </div>
 
         <table class="table table-striped">
@@ -39,12 +52,39 @@
                 </tr>
             </thead>
             <tbody>
-
+            <c:forEach var="j" begin="1" end="10">
+                <tr>
+                    <td>12345124</td>
+                    <td>Pay</td>
+                    <td>99.99</td>
+                    <td>05/11/2020</td>
+                </tr>
+            </c:forEach>
             </tbody>
             <tfoot>
 
             </tfoot>
         </table>
+
+
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <c:forEach var="j" begin="1" end="${totalPages}">
+                <li class="page-item"><a class="page-link" href="#"><c:out value="${j}"/></a></li>
+                </c:forEach>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
 
         <!-- Footer -->
         <%@include file="/WEB-INF/fragments/footer.jsp"%>
