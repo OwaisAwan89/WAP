@@ -90,17 +90,20 @@ public class RegisterController extends HttpServlet {
         newUser.setLastName(request.getParameter("lastName"));
         newUser.setEmail(request.getParameter("inputEmail"));
         newUser.setPassword(request.getParameter("inputPassword"));
-        newUser.setAccountNumber(request.getParameter("ssnNumber"));
+//        newUser.setAccountNumber(request.getParameter("ssnNumber"));
         newUser.setUsername(request.getParameter("userName"));
         UserDao userDao = new UserDao();
         userDao.saveUser(newUser);
 
         // Create 1, 2, or 3 accounts for a single user.
-        Account newAccount = new Account();
+
         int random1To3 = ThreadLocalRandom.current().nextInt(1,3);
+        int random1To1000 = ThreadLocalRandom.current().nextInt(1,1000);
         String[] accountTypeList = new String[] {"SAVINGS", "CHECKING", "RETIREMENT"};
         for(int i=0; i<random1To3; i++){
+            Account newAccount = new Account();
             // Create in series - SAVINS, CHECKING, RETIREMENT account for a single user.
+            newAccount.setAccountNumber(110012l+random1To1000);
             newAccount.setAccountType(accountTypeList[i]);
             newAccount.setBalance(ThreadLocalRandom.current().nextInt(5000,10000));
             // Account title = account type + name

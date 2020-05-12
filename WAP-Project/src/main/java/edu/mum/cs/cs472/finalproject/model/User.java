@@ -14,10 +14,6 @@ import javax.persistence.Table;
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public int getId() {
-        return id;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -48,17 +44,6 @@ public class User implements Serializable {
 
     @Column(name = "email")
     private String email;
-
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
-    @Column(name = "account_number")
-    private String accountNumber;
 
     public String getFirstName() {
         return firstName;
