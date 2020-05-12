@@ -6,8 +6,10 @@ import edu.mum.cs.cs472.finalproject.controller.protocol.AccountsResult;
 import edu.mum.cs.cs472.finalproject.controller.protocol.Result;
 import edu.mum.cs.cs472.finalproject.model.Account;
 import edu.mum.cs.cs472.finalproject.model.FundTransfer;
+import edu.mum.cs.cs472.finalproject.model.User;
 import edu.mum.cs.cs472.finalproject.repository.AccountDao;
 import edu.mum.cs.cs472.finalproject.repository.FundTransferDao;
+import edu.mum.cs.cs472.finalproject.repository.UserDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -78,8 +80,18 @@ public class RestfulController extends HttpServlet {
         Double amount = Double.parseDouble(req.getParameter("amount"));
 
         FundTransferDao fundTransferDao = new FundTransferDao();
+        UserDao userDao = new UserDao();
+
+
+
+        int userId = (int)req.getAttribute("userId");
+        User user = userDao.getUserById(userId);
 
         FundTransfer fundTransfer = new FundTransfer();
+        fundTransfer.setAmount(amount);
+        fundTransfer.setFromAccount(from);
+        fundTransfer.setToAccount(to);
+        fundTransfer.setUser(user);
 
         fundTransferDao.saveFundTransfer(fundTransfer);
 

@@ -4,8 +4,10 @@ import edu.mum.cs.cs472.finalproject.dbConnection.HibernateUtil;
 import edu.mum.cs.cs472.finalproject.model.Account;
 import edu.mum.cs.cs472.finalproject.model.BillPayment;
 import edu.mum.cs.cs472.finalproject.model.User;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 
 import javax.persistence.*;
@@ -38,10 +40,11 @@ public class AccountDao {
         List<Account> accounts = null;
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "from Account U WHERE U.user = :userId";
+            String sql = "select * from Account U WHERE U.user_id = :userId";
 
-            Query query = session.createQuery(hql);
+            NativeQuery query = session.createSQLQuery(sql);
             query.setParameter("userId", userId);
+            query.addEntity(Account.class);
             accounts = (List<Account>)  query.list();
 
         } catch (Exception e) {
@@ -59,12 +62,12 @@ public class AccountDao {
         List<Account> accounts = null;
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "from Account";
+            String sql = "select * from Account";
 
-            /*
-            Query query = session.createQuery(hql);
+
+            NativeQuery query = session.createSQLQuery(sql);
+            query.addEntity(Account.class);
             accounts = (List<Account>)  query.list();
-            */
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();

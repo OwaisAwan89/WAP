@@ -94,8 +94,20 @@
         }).done(function (data) {
             if(data.code === 0) {
                 let from = $("#from");
-                for(let account of data.accounts) {
-                    let tag = `<option value="${account.id}">${account.name}${account.id}</option>`;
+                for(let v of data.accounts) {
+                    console.log(v);
+                    let tag = "<option value=\"" +
+                            v.accountNumber +
+                            "\">" +
+                            v.user.firstName +
+                            " " +
+                            v.user.lastName +
+                            " | " +
+                            v.accountNumber +
+                            " | " +
+                            v.accountType +
+                            "</option>";
+
                     from.append(tag);
                 }
             }
@@ -113,8 +125,19 @@
         }).done(function (data) {
             if(data.code === 0) {
                 let to = $("#to");
-                for(let account of data.accounts) {
-                    let tag = `<option value="${account.id}">${account.name} ${account.id}</option>`;
+                for(let v of data.accounts) {
+                    let tag = "<option value=\"" +
+                        v.accountNumber +
+                        "\">" +
+                        v.user.firstName +
+                        " " +
+                        v.user.lastName +
+                        " | " +
+                        v.accountNumber +
+                        " | " +
+                        v.accountType +
+                        "</option>";
+
                     to.append(tag);
                 }
             }

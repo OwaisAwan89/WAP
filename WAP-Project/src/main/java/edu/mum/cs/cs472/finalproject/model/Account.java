@@ -13,7 +13,8 @@ public class Account implements Serializable {
     @Column(name = "account_number", updatable = false, nullable = false)
     private long accountNumber;
 
-    @JoinColumn(name = "user_id")
+    @ManyToOne
+    @JoinColumn(name = "user_id", foreignKey=@ForeignKey(name="id"))
     private User user;
 
     @Column(name = "balance")
@@ -57,4 +58,14 @@ public class Account implements Serializable {
         this.accountType = accountType;
     }
 
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountNumber=" + accountNumber +
+                ", user=" + user +
+                ", balance=" + balance +
+                ", accountTitle='" + accountTitle + '\'' +
+                ", accountType='" + accountType + '\'' +
+                '}';
+    }
 }
