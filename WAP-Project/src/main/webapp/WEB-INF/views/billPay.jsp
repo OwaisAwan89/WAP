@@ -62,7 +62,9 @@
 
                                     <div class="input-group-append">
                                         <input type="text" name ="billNumber" class="form-control bg-light border-0 small" placeholder="Enter bill Number" aria-label="Search" aria-describedby="basic-addon2">
-                                            <button class="btn btn-primary btn-user btn-block">Generate Bill</button>
+                                        <input type="hidden" name="beneficiary" value="Water Incorporation">
+                                        <input type="hidden" name="bank" value="Wells Fargo Bank">
+                                        <button class="btn btn-primary btn-user btn-block">Generate Bill</button>
                                     </div>
 
                                 </div>
@@ -84,16 +86,25 @@
                     <!-- Card Content - Collapse -->
                     <div class="collapse" id="collapseCardExample2">
                         <div class="card-body">
-                            $25
-                            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            Tesla Pvt. Ltd.
+                            <br> BENEFICIARY BANK: Mid West One Bank
+                            <br> BENEFICIARY ACCOUNT NUMBER: PQR01111555
+                            <br><br>
+
+                            <form class="user" method="POST" action="billPay">
                                 <div class="input-group">
+
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button" name="payElecBill">
-                                            <i class="fas fa-search fa-sm"></i>
-                                        </button>
+                                        <input type="text" name ="billNumber" class="form-control bg-light border-0 small" placeholder="Enter bill Number" aria-label="Search" aria-describedby="basic-addon2">
+                                        <input type="hidden" name="beneficiary" value="Tesla Pvt. Ltd.">
+                                        <input type="hidden" name="bank" value="Mid West Bank">
+                                        <button class="btn btn-primary btn-user btn-block">Generate Bill</button>
                                     </div>
+
                                 </div>
                             </form>
+
+                            <p style="visibility: hidden">$5.00 <button class="btn btn-primary" type="button"></button></p>
                         </div>
                     </div>
                 </div>
@@ -109,22 +120,30 @@
                     <!-- Card Content - Collapse -->
                     <div class="collapse" id="collapseCardExample3">
                         <div class="card-body">
-                            $ 35
-                            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            Discovery
+                            <br> BENEFICIARY BANK: Mid West One Bank
+                            <br> BENEFICIARY ACCOUNT NUMBER: ACC01111555
+                            <br><br>
+
+                            <form class="user" method="POST" action="billPay">
                                 <div class="input-group">
+
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button" name="payCreditCardBill">
-                                            <i class="fas fa-search fa-sm"></i>
-                                        </button>
+                                        <input type="text" name ="billNumber" class="form-control bg-light border-0 small" placeholder="Enter bill Number" aria-label="Search" aria-describedby="basic-addon2">
+                                        <input type="hidden" name="beneficiary" value="Discovery">
+                                        <input type="bank" name="bank" value="Mid West One Bank">
+                                        <button class="btn btn-primary btn-user btn-block">Generate Bill</button>
                                     </div>
+
                                 </div>
                             </form>
+
+                            <p style="visibility: hidden">$5.00 <button class="btn btn-primary" type="button"></button></p>
+
                         </div>
                     </div>
                 </div>
             </div>
-
-
 
         </div>
 

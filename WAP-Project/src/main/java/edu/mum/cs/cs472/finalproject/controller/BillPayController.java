@@ -35,7 +35,7 @@ public class BillPayController extends HttpServlet {
             // Create a new object to keep it ready to write to table: bill_payment
             BillPayment waterBillPaymentObj = new BillPayment();
             waterBillPaymentObj.setBillAmount(waterBillAmount);
-            waterBillPaymentObj.setBillCompany("Water Incorporation"+"-"+"Wells Fargo Bank");
+            waterBillPaymentObj.setBillCompany(request.getParameter("beneficiary")+"-"+request.getParameter("bank"));
             waterBillPaymentObj.setBillNumber(request.getParameter("billNumber"));
 
             // get user ID from session
@@ -51,10 +51,9 @@ public class BillPayController extends HttpServlet {
 
             // Deduct amount from Account
         }
-        else{
-            request.setAttribute("response",false);
-            request.getRequestDispatcher("/WEB-INF/views/billPay.jsp").forward(request, response);
-        }
+
+        request.setAttribute("response",false);
+        request.getRequestDispatcher("/WEB-INF/views/billPay.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
