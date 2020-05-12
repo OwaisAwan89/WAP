@@ -5,10 +5,10 @@ import com.google.gson.GsonBuilder;
 import edu.mum.cs.cs472.finalproject.controller.protocol.AccountsResult;
 import edu.mum.cs.cs472.finalproject.controller.protocol.Result;
 import edu.mum.cs.cs472.finalproject.model.Account;
-import edu.mum.cs.cs472.finalproject.service.AccountService;
-import edu.mum.cs.cs472.finalproject.service.TransactionService;
+import edu.mum.cs.cs472.finalproject.model.FundTransfer;
+import edu.mum.cs.cs472.finalproject.repository.AccountDao;
+import edu.mum.cs.cs472.finalproject.repository.FundTransferDao;
 
-import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -55,12 +55,12 @@ public class RestfulController extends HttpServlet {
 
     private void getAccounts(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int userId = parseInt(req.getParameter("userid") == null? "0" : req.getParameter("userid"));
-
+        AccountDao accountDao = new AccountDao();
         List<Account> accounts;
         if(userId == 0) {
-            accounts = AccountService.getInstance().getAllAccounts();
+            accounts = accountDao.getAllAccount();
         } else {
-            accounts = AccountService.getInstance().getAccountsByUserId(userId);
+            accounts = accountDao.getAccounts(userId);
         }
 
         AccountsResult result = new AccountsResult(0, "", accounts);
@@ -77,14 +77,16 @@ public class RestfulController extends HttpServlet {
         long to = Long.parseLong(req.getParameter("to"));
         Double amount = Double.parseDouble(req.getParameter("amount"));
 
-        boolean isSuccess = TransactionService.getInstance().transfer(from, to, amount);
+        FundTransferDao fundTransferDao = new FundTransferDao();
+
+        FundTransfer fundTransfer = new FundTransfer();
+
+        fundTransferDao.saveFundTransfer(fundTransfer);
 
         Result result;
-        if(isSuccess) {
-            result = new Result(0, "");
-        } else {
-            result = new Result(1, "System Error");
-        }
+
+        result = new Result(0, "");
+
 
         Gson gson = new GsonBuilder().create();
         String json = gson.toJson(result);
