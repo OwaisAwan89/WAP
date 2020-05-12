@@ -10,6 +10,7 @@ import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -68,42 +69,14 @@ public class LoginController extends HttpServlet {
 		String password = request.getParameter("password");
 
 		if (loginDao.validate(username, password)) {
-//			User newUser=new User();
-//			newUser.setFirstName("Manoj");
-//			newUser.setLastName("Gupta");
-//			newUser.setUsername("manoj");
-//			newUser.setPassword("123");
-//			loginDao.saveUser(newUser);
 			User loginUser=loginDao.getUser(username);
-//			TransactionSummary t1= new TransactionSummary();
-//			t1.setAmount(19);
-//			t1.setFromAccount(1001001);
-//			t1.setToAccount(1001004);
-//			t1.setTransactionDate(new Date());
-//			t1.setTransactionDesc("bill payment");
-//			t1.setTransactionType("credit");
-//			t1.setUser(loginUser);
-//			transactionSummaryDao.saveTransaction(t1);
-//			TransactionSummary t2= new TransactionSummary();
-//			t2.setAmount(11);
-//			t2.setFromAccount(1001001);
-//			t2.setToAccount(1001002);
-//			t2.setTransactionDate(new Date());
-//			t2.setTransactionDesc("fund transfer");
-//			t2.setTransactionType("credit");
-//			t2.setUser(loginUser);
-//			transactionSummaryDao.saveTransaction(t2);
-//			TransactionSummary t3= new TransactionSummary();
-//			t3.setAmount(2);
-//			t3.setFromAccount(1001001);
-//			t3.setToAccount(1001002);
-//			t3.setTransactionDate(new Date());
-//			t3.setTransactionDesc("fund transfer");
-//			t3.setTransactionType("credit");
-//			t3.setUser(loginUser);
-//			transactionSummaryDao.saveTransaction(t3);
 
 			request.setAttribute("userId", loginUser.getId());
+
+			Cookie userCookie = new Cookie("USER_ID", Integer.toString(loginUser.getId()));
+			userCookie.setMaxAge(60*60*24*7); //Store cookie for 7 days
+			response.addCookie(userCookie);
+
 			response.sendRedirect("home");
 
 		}else {

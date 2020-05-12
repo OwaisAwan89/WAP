@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(description = "PageAuthFilter", urlPatterns = {"/transfer", "/history"})
+@WebFilter(description = "PageAuthFilter", urlPatterns = {"/transfer", "/history", "/home"})
 public class PageAuthFilter extends HttpFilter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
@@ -25,11 +25,9 @@ public class PageAuthFilter extends HttpFilter {
             }
         }
 
-        userId = 1;
-
         if(userId == 0) {
             HttpServletResponse httpResponse = (HttpServletResponse) res;
-            httpResponse.sendRedirect("/login");
+            httpResponse.sendRedirect("login");
         } else {
             req.setAttribute("userId", userId);
             chain.doFilter(req, res);

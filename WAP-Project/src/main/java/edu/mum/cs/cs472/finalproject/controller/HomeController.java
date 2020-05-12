@@ -41,7 +41,7 @@ public class HomeController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String userIdAttribute = (String) request.getAttribute("userId");
+        String userIdAttribute = Integer.toString((int)request.getAttribute("userId"));
         System.out.println("userIdAttribute =>"+userIdAttribute);
 //        int userId =Integer.parseInt(userIdAttribute);
         int userId =1;

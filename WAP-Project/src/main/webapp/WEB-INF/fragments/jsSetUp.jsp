@@ -26,3 +26,16 @@
 
 <!-- Alert and message box -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+<!-- Js cookie -->
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+
+<!-- common js function -->
+<script>
+$(function() {
+    $("#quit").on("click", function() {
+        Cookies.remove('USER_ID', { path: '' });
+        location.href = "login";
+    });
+});
+</script>
