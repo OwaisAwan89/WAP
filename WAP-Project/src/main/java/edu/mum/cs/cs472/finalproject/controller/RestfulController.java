@@ -10,6 +10,7 @@ import edu.mum.cs.cs472.finalproject.model.User;
 import edu.mum.cs.cs472.finalproject.repository.AccountDao;
 import edu.mum.cs.cs472.finalproject.repository.FundTransferDao;
 import edu.mum.cs.cs472.finalproject.repository.UserDao;
+import edu.mum.cs.cs472.finalproject.service.TransferService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -78,26 +79,15 @@ public class RestfulController extends HttpServlet {
         long from = Long.parseLong(req.getParameter("from"));
         long to = Long.parseLong(req.getParameter("to"));
         Double amount = Double.parseDouble(req.getParameter("amount"));
-
-        FundTransferDao fundTransferDao = new FundTransferDao();
-        UserDao userDao = new UserDao();
-
-
-
         int userId = (int)req.getAttribute("userId");
-        User user = userDao.getUserById(userId);
 
-        FundTransfer fundTransfer = new FundTransfer();
-        fundTransfer.setAmount(amount);
-        fundTransfer.setFromAccount(from);
-        fundTransfer.setToAccount(to);
-        fundTransfer.setUser(user);
-
-        fundTransferDao.saveFundTransfer(fundTransfer);
-
+        boolean success =TransferService.getInstance().transfer(from, to, amount, userId);
         Result result;
 
-        result = new Result(0, "");
+        if(success)
+            result = new Result(0, "");
+        else
+            result = new Result(1, "");
 
 
         Gson gson = new GsonBuilder().create();

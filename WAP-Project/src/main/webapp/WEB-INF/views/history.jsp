@@ -35,9 +35,14 @@
                 <label class="my-1 mr-2" for="account">Account:</label>
                 <select class="custom-select my-1 mr-sm-2" id="account">
                     <option selected>Choose your account</option>
-                    <option value="1111111">One</option>
-                    <option value="2222222">Two</option>
-                    <option value="3333333">Three</option>
+
+                    <c:forEach var="acc" items="${myAccounts}">
+                    <option
+                            value="<c:out value="${acc.accountNumber}"/>"
+                            <c:if test="${account==acc.accountNumber}">selected</c:if> >
+                            <c:out value="${acc.user.firstName} ${acc.user.lastName} | ${acc.accountType} | ${acc.accountNumber}"/>
+                        </option>
+                    </c:forEach>
                 </select>
             </form>
         </div>
@@ -45,19 +50,23 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Target Account</th>
+                    <th>From Account</th>
+                    <th>To Account</th>
                     <th>Type</th>
                     <th>Amount</th>
-                    <th>Create Time</th>
+                    <th>Desc</th>
+                    <th>Date Time</th>
                 </tr>
             </thead>
             <tbody>
-            <c:forEach var="j" begin="1" end="10">
+            <c:forEach var="item" items="${transactionSummaries}">
                 <tr>
-                    <td>12345124</td>
-                    <td>Pay</td>
-                    <td>99.99</td>
-                    <td>05/11/2020</td>
+                    <td><c:out value="${item.fromAccount}"/></td>
+                    <td><c:out value="${item.toAccount}"/></td>
+                    <td><c:out value="${item.transactionType}"/></td>
+                    <td><c:out value="${item.amount}"/></td>
+                    <td><c:out value="${item.transactionDesc}"/></td>
+                    <td><c:out value="${item.transactionDate}"/></td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -69,15 +78,17 @@
 
         <nav>
             <ul class="pagination justify-content-center">
-                <li class="page-item">
+                <li class="page-item <c:if test="${ pageIndex == 1 }">disabled</c:if>">
                     <a class="page-link" href="#" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
                 <c:forEach var="j" begin="1" end="${totalPages}">
-                <li class="page-item"><a class="page-link" href="#"><c:out value="${j}"/></a></li>
+                <li class="page-item  <c:if test="${ pageIndex == j }">active</c:if>">
+                    <a class="page-link" href="history?account=<c:out value="${account}"/>&page=<c:out value="${j}"/>"><c:out value="${j}"/></a>
+                </li>
                 </c:forEach>
-                <li class="page-item">
+                <li class="page-item <c:if test="${ pageIndex == totalPages }">disabled</c:if>">
                     <a class="page-link" href="#" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
@@ -98,6 +109,12 @@
 
 <%@include file="/WEB-INF/fragments/jsSetUp.jsp"%>
 <script>
+    $("#account").on("change", function () {
+        let accountNumber = $("#account").val();
+        let pageIndex = <%=request.getAttribute("pageIndex")%>;
+
+        location.href = "history?account=" + accountNumber + "&page=" + pageIndex;
+    });
 
 </script>
 </body>
