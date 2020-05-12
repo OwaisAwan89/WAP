@@ -8,6 +8,7 @@ import org.hibernate.query.NativeQuery;
 
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class TransactionSummaryDao {
@@ -76,5 +77,29 @@ public class TransactionSummaryDao {
         }
 
         return count;
+    }
+
+    public List<TransactionSummary> getTransactionSummary(Date firstDay, Date lastDay, int userId, String transType) {
+        Transaction transaction = null;
+        List<TransactionSummary> transactionHistory = null;
+        System.out.println("user IDD =>"+userId);
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String sql = "select * from transaction_summary ts WHERE ts.transaction_date BETWEEN  :firstDay AND :lastDay AND ts.user_id = :userId AND ts.transaction_type  = :transType";
+            NativeQuery query = session.createSQLQuery(sql);
+            query.setParameter("firstDay", firstDay);
+            query.setParameter("lastDay", lastDay);
+            query.setParameter("userId", userId);
+            query.setParameter("transType", transType);
+            query.addEntity(TransactionSummary.class);
+            System.out.println("query =>"+query.toString());
+            transactionHistory =  query.list();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        System.out.println("transactionHistory size =>"+transactionHistory.size());
+        return transactionHistory;
     }
 }
