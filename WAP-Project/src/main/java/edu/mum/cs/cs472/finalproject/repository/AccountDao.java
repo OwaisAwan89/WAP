@@ -41,6 +41,28 @@ public class AccountDao {
         }
     }
 
+    public Account getAccount(long accountNumber) {
+        Transaction transaction = null;
+        Account account = null;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String sql = "select * from Account U WHERE U.account_number = :accountNumber";
+
+            NativeQuery query = session.createSQLQuery(sql);
+            query.setParameter("accountNumber", accountNumber);
+            query.addEntity(Account.class);
+            account = (Account)  query.uniqueResult();
+
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+
+        return account;
+    }
+
     public List<Account> getAccounts(int userId) {
         Transaction transaction = null;
         List<Account> accounts = null;

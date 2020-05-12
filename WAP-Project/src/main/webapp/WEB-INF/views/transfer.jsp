@@ -84,6 +84,8 @@
 <script>
     $(function () {
         let userId = "<%=request.getAttribute("userId")%>";
+        $("#from").attr("disabled","disabled");
+        $("#to").attr("disabled","disabled");
 
         $.ajax("api/accounts", {
             type: "GET",
@@ -95,7 +97,6 @@
             if(data.code === 0) {
                 let from = $("#from");
                 for(let v of data.accounts) {
-                    console.log(v);
                     let tag = "<option value=\"" +
                             v.accountNumber +
                             "\">" +
@@ -110,6 +111,7 @@
 
                     from.append(tag);
                 }
+                from.removeAttr("disabled");
             }
 
         }).fail(function () {
@@ -140,6 +142,7 @@
 
                     to.append(tag);
                 }
+                to.removeAttr("disabled");
             }
 
         }).fail(function () {

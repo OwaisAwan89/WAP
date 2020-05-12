@@ -30,6 +30,14 @@ public class Account implements Serializable {
     @Column(name = "account_type")
     private String accountType;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Long getAccountNumber() {
         return accountNumber;
     }
