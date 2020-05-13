@@ -2,9 +2,11 @@ package edu.mum.cs.cs472.finalproject.controller;
 
 import edu.mum.cs.cs472.finalproject.model.Account;
 import edu.mum.cs.cs472.finalproject.model.BillPayment;
+import edu.mum.cs.cs472.finalproject.model.TransactionSummary;
 import edu.mum.cs.cs472.finalproject.model.User;
 import edu.mum.cs.cs472.finalproject.repository.AccountDao;
 import edu.mum.cs.cs472.finalproject.repository.BillPaymentDao;
+import edu.mum.cs.cs472.finalproject.repository.TransactionSummaryDao;
 import edu.mum.cs.cs472.finalproject.repository.UserDao;
 
 import javax.servlet.ServletException;
@@ -13,6 +15,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 
 @WebServlet(
@@ -23,18 +29,24 @@ import java.util.concurrent.ThreadLocalRandom;
 public class BillPayController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String generateWaterBill = request.getParameter("billNumber");
-        if (generateWaterBill!=null) {
+
+        String generateBill = request.getParameter("billNumber");
+        if (generateBill!=null && generateBill!="") {
+
+            // STEP 1 of 3: Add entry to table: bill_payment.
 
             // Generate a random bill amount with range 15 to 75.
-            int waterBillAmount = ThreadLocalRandom.current().nextInt(15,75);
+            int billAmount = ThreadLocalRandom.current().nextInt(15,75);
 
             // Get the Bill Payment Dao object to apply pay() function.
-            BillPaymentDao waterBillPaymentDao = new BillPaymentDao();
+            BillPaymentDao billPaymentDao = new BillPaymentDao();
+
+            // Add dummy data for business account which only accept money.
+            billPaymentDao.initialiseCompanyDB();
 
             // Create a new object to keep it ready to write to table: bill_payment
             BillPayment waterBillPaymentObj = new BillPayment();
-            waterBillPaymentObj.setBillAmount(waterBillAmount);
+            waterBillPaymentObj.setBillAmount(billAmount);
             waterBillPaymentObj.setBillCompany(request.getParameter("beneficiary")+"-"+request.getParameter("bank"));
             waterBillPaymentObj.setBillNumber(request.getParameter("billNumber"));
 
@@ -47,9 +59,32 @@ public class BillPayController extends HttpServlet {
             UserDao userDao = new UserDao();
             User user = userDao.getUserById(userId);
             waterBillPaymentObj.setUser(user);
-            waterBillPaymentDao.pay(waterBillPaymentObj);
+            billPaymentDao.pay(waterBillPaymentObj);
 
-            // Deduct amount from Account
+            // STEP 2 of 3: Deduce amount from table: account.
+            AccountDao accountDao = new AccountDao();
+            Account account = accountDao.getAccount(Long.parseLong(request.getParameter("account_number"), 10));
+            accountDao.deduct(billAmount, account);
+
+            // STEP 3 of 3: Add entry to table: transaction_summary.
+            TransactionSummary transactionSummary = new TransactionSummary();
+            transactionSummary.setAmount(billAmount);
+            transactionSummary.setFromAccount(Long.parseLong(request.getParameter("account_number")));
+            transactionSummary.setToAccount(111); // Bank Account number
+            ZoneId zoneId = ZoneId.systemDefault();
+            ZonedDateTime zdt = LocalDateTime.now().atZone(zoneId);
+            Date date = Date.from(zdt.toInstant());
+            transactionSummary.setTransactionDate(date);
+            transactionSummary.setTransactionType("transfer");
+            transactionSummary.setTransactionDesc("DEBIT");
+            Account accountFrom = accountDao.getAccount(Long.parseLong(request.getParameter("account_number")));
+            transactionSummary.setUser(accountFrom.getUser());
+            TransactionSummaryDao transactionSummaryDao = new TransactionSummaryDao();
+            transactionSummaryDao.saveTransaction(transactionSummary);
+            Account accountTo = accountDao.getAccount(111);// Bank Account number
+            transactionSummary.setUser(accountTo.getUser());
+            transactionSummaryDao.saveTransaction(transactionSummary);
+
         }
 
         request.setAttribute("response",false);

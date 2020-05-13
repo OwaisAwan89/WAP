@@ -36,7 +36,9 @@ public class AccountDao {
             Session session = HibernateUtil.getSessionFactory().openSession();
             Transaction transaction = session.beginTransaction();
             double balance = thisAccount.getBalance() - billAmount;
-            session.update(balance);
+            thisAccount.setBalance(balance);
+            session.update(thisAccount);
+            transaction.commit();
         } catch (Exception e) {
         }
     }

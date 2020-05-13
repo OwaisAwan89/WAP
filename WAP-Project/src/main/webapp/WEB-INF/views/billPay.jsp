@@ -62,8 +62,10 @@
 
                                     <div class="input-group-append">
                                         <input type="text" name ="billNumber" class="form-control bg-light border-0 small" placeholder="Enter bill Number" aria-label="Search" aria-describedby="basic-addon2">
+                                        <input type="hidden" name="account_number" value="1">
                                         <input type="hidden" name="beneficiary" value="Water Incorporation">
                                         <input type="hidden" name="bank" value="Wells Fargo Bank">
+                                        <input type="hidden" name="bank-account-number" value="B1801111555">
                                         <button class="btn btn-primary btn-user btn-block">Generate Bill</button>
                                     </div>
 
@@ -131,7 +133,7 @@
                                     <div class="input-group-append">
                                         <input type="text" name ="billNumber" class="form-control bg-light border-0 small" placeholder="Enter bill Number" aria-label="Search" aria-describedby="basic-addon2">
                                         <input type="hidden" name="beneficiary" value="Discovery">
-                                        <input type="bank" name="bank" value="Mid West One Bank">
+                                        <input type="hidden" name="bank" value="Mid West One Bank">
                                         <button class="btn btn-primary btn-user btn-block">Generate Bill</button>
                                     </div>
 
