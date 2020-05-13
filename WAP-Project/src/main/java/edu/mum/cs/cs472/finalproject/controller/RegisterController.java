@@ -98,12 +98,11 @@ public class RegisterController extends HttpServlet {
         // Create 1, 2, or 3 accounts for a single user.
 
         int random1To3 = ThreadLocalRandom.current().nextInt(1,3);
-        int random1To1000 = ThreadLocalRandom.current().nextInt(1,1000);
+        System.out.println("random1To3 =>"+random1To3);
         String[] accountTypeList = new String[] {"SAVINGS", "CHECKING", "RETIREMENT"};
         for(int i=0; i<random1To3; i++){
             Account newAccount = new Account();
-            // Create in series - SAVINS, CHECKING, RETIREMENT account for a single user.
-            newAccount.setAccountNumber(110012l+random1To1000);
+            // Create in series - SAVINS, CHECKING, RETIREMENT account for a single user
             newAccount.setAccountType(accountTypeList[i]);
             newAccount.setBalance(ThreadLocalRandom.current().nextInt(5000,10000));
             // Account title = account type + name

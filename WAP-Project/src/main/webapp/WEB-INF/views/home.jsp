@@ -37,78 +37,32 @@
                 <!-- Content Row -->
                 <div class="row">
 
-                    <!-- Earnings (Monthly) Card Example -->
-                    <div class="col-xl-6 col-md-12 mb-4">
-                        <div class="card border-left-primary shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">SAVINGS</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    <!-- Accounts Example -->
+                    <c:forEach var="account" items="${accounts}">
+                        <div class="col-xl-6 col-md-12 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Account Type: <c:out value="${account.accountType}"/> </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">Account Title: <c:out value="${account.accountTitle}"/></div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">Account Number: <c:out value="${account.accountNumber}"/></div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">Balance: <c:out value="${account.balance}"/></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </c:forEach>
 
-                    <!-- Earnings (Monthly) Card Example -->
-                    <div class="col-xl-6 col-md-12 mb-4">
-                        <div class="card border-left-success shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">EXPENDITURE</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">$15,000</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
 
                 </div>
 
-                <div class ="row">
-                    <div class="col-xl-6 col-md-6 mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Withdraw Money</h6>
-                        </div>
-                        <div class="card-body">
-                            <!-- I want to <code>withdrawl</code> -->
-                            <div class="input-group">
-                                <input type="text" class="form-control bg-light border-0 small" placeholder="$00000.0" aria-label="Search" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button">
-                                        <i class="fas fa-withdraw fa-sm"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-xl-6 col-md-6 mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Deposit Money</h6>
-                        </div>
-                        <div class="card-body">
-                            <!-- I want to <code>withdrawl</code> -->
-                            <div class="input-group">
-                                <input type="text" class="form-control bg-light border-0 small" placeholder="$00000.0" aria-label="Search" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button">
-                                        <i class="fas fa-deposit fa-sm"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <!-- Content Row -->
 
                 <div class="row">
@@ -119,7 +73,7 @@
 
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Account Summary</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">All Accounts Debit/Credit Summary</h6>
                             </div>
                             <div class="card-body">
                                 <div class="chart-area">
@@ -135,7 +89,7 @@
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Spending Stats</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">All Accounts Spending Statistics</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -144,13 +98,13 @@
                                     </div>
                                     <div class="mt-4 text-center small">
                     <span class="mr-2">
-                      <i class="fas fa-circle text-primary"></i> Fund Transfer %
+                      <i class="fas fa-circle text-primary"></i> Transfers %
                     </span>
                                         <span class="mr-2">
-                      <i class="fas fa-circle text-success"></i> Bill Payment %
+                      <i class="fas fa-circle text-success"></i> Payments %
                     </span>
                                         <span class="mr-2">
-                      <i class="fas fa-circle text-info"></i> Other %
+                      <i class="fas fa-circle text-info"></i> Others %
                     </span>
                                     </div>
                                 </div>

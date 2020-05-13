@@ -98,22 +98,16 @@
 
   <li class="nav-item">
     <a class="nav-link" href="transfer">
-      <i class="fas fa-fw fa-table"></i>
+      <i class="fas fa-fw fa-dollar-sign"></i>
       <span>Transfer money</span></a>
   </li>
 
   <li class="nav-item">
     <a class="nav-link" href="billPay">
-      <i class="fas fa-fw fa-table"></i>
+      <i class="fas fa-fw fa-calendar"></i>
       <span>Bill Pay</span></a>
   </li>
 
-  <!-- Nav Item - Charts -->
-  <li class="nav-item">
-    <a class="nav-link" href="charts.html">
-      <i class="fas fa-fw fa-chart-area"></i>
-      <span>Transaction Visualization</span></a>
-  </li>
 
   <!-- Sidebar Toggler (Sidebar) -->
   <div class="text-center d-none d-md-inline">

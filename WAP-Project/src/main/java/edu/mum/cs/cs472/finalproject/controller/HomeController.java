@@ -41,10 +41,10 @@ public class HomeController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String userIdAttribute = Integer.toString((int)request.getAttribute("userId"));
-        System.out.println("userIdAttribute =>"+userIdAttribute);
+        int userId = (int)request.getAttribute("userId");
+        System.out.println("userIdAttribute userId =>"+userId);
 //        int userId =Integer.parseInt(userIdAttribute);
-        int userId =1;
+//        int userId =1;
         int [] debitData= new int[12];
         int [] creditData=  new int[12];
 
@@ -85,7 +85,7 @@ public class HomeController extends HttpServlet {
             for (TransactionSummary history :transactionHistory) {
                 totalCurrentMonthDebit+=history.getAmount();
                 totalDebit+=history.getAmount();
-                System.out.println("totalDebit 11 =>"+totalDebit);
+
             }
             debitData[currentMonth]=totalCurrentMonthDebit;
             creditData[currentMonth]=totalCurrentMonthCredit;
@@ -93,7 +93,7 @@ public class HomeController extends HttpServlet {
 
         request.setAttribute("debitData", debitData);
         request.setAttribute("creditData", creditData);
-        
+
         List<Account> accounts =accountDao.getAccounts(userId);
         int totalDebitAmount=0;
         for (Account account :accounts) {
@@ -108,21 +108,30 @@ public class HomeController extends HttpServlet {
         System.out.println("otherSpendingTotal =>"+otherSpendingTotal);
 
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
-
-        float billPaymentPerc = (billPaymentTotal * 100.0f) / totalDebitAmount;
+        int totalSpendings=billPaymentTotal+fundTransferTotal+otherSpendingTotal;
+        float billPaymentPerc = (billPaymentTotal * 100.0f) / totalSpendings;
+        if (Float.isNaN(billPaymentPerc)){
+            System.out.println("billPaymentPerc NaN=>");
+            billPaymentPerc=1;
+        }else{
+            billPaymentPerc+=1;
+        }
+        System.out.println("billPaymentPerc =>"+billPaymentPerc);
         billPaymentPerc = Float.valueOf(decimalFormat.format(billPaymentPerc));
 
-        float fundTransferPerc = (fundTransferTotal* 100.0f) / totalDebitAmount;
+        float fundTransferPerc = (fundTransferTotal* 100.0f) / totalSpendings;
+        if (Float.isNaN(fundTransferPerc)){fundTransferPerc=1;}else{fundTransferPerc+=1;}
         fundTransferPerc = Float.valueOf(decimalFormat.format(fundTransferPerc));
 
-        float otherSpendingPerc = (otherSpendingTotal * 100.0f) / totalDebitAmount;
+        float otherSpendingPerc = (otherSpendingTotal * 100.0f) / totalSpendings;
+        if (Float.isNaN(otherSpendingPerc)){otherSpendingPerc=1;}else{otherSpendingPerc+=1;}
         otherSpendingPerc = Float.valueOf(decimalFormat.format(otherSpendingPerc));
 
-        float [] pieChartData= {fundTransferPerc, billPaymentPerc ,otherSpendingPerc};
+        float [] pieChartData= {fundTransferPerc-1, billPaymentPerc-1 ,otherSpendingPerc-1};
 
         System.out.println("pieChartData =>"+pieChartData.toString());
         request.setAttribute("pieChartData",pieChartData);
-
+        request.setAttribute("accounts",accounts);
         request.getRequestDispatcher("/WEB-INF/views/home.jsp").forward(request, response);
     }
 }
