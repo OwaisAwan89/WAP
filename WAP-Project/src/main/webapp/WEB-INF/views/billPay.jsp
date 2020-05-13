@@ -271,8 +271,6 @@
 
 <script>
 
-    document.getElementById("hiddenField").value=yourCalculatedVariable;
-
     $(function () {
         $("#generateBill1").on("click", function () {
             $(".card1 .card-body").css("height", 280);
