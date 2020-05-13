@@ -79,7 +79,7 @@
                             <form id="accountPayForm1" class="form-inline" method="POST" action="billPay" style="display: none;">
                                 <div class="form-group mt-2">
                                     <label class="my-1 mr-2" for="account">Account:</label>
-                                    <select class="custom-select my-1 mr-sm-2 form-control" id="account">
+                                    <select class="custom-select my-1 mr-sm-2 form-control" id="account" name ="customerAccount">
                                         <option selected>Choose your account</option>
                                         <c:forEach var="acc" items="${myAccounts}">
                                             <option
@@ -95,7 +95,8 @@
                                 <input type="hidden" name="account_number" value="1">
                                 <input type="hidden" name="beneficiary" value="Water Incorporation">
                                 <input type="hidden" name="bank" value="Wells Fargo Bank">
-                                <input type="hidden" name="bank-account-number" value="B1801111555">
+                                <input type="hidden" name="bank-account-number" value="1111555">
+                                <input type="hidden" name="bill_type" value="water">
                                 <button name="billPay" class="btn btn-primary btn-user btn-block mt-2">Pay</button>
                             </form>
                         </div>
@@ -134,7 +135,7 @@
                             <form id="accountPayForm2" class="form-inline" method="POST" action="billPay" style="display: none;">
                                 <div class="form-group mt-2">
                                     <label class="my-1 mr-2" for="account2">Account:</label>
-                                    <select class="custom-select my-1 mr-sm-2 form-control" id="account2">
+                                    <select class="custom-select my-1 mr-sm-2 form-control" id="account2" name ="customerAccount">
                                         <option selected>Choose your account</option>
                                         <c:forEach var="acc" items="${myAccounts}">
                                             <option
@@ -150,7 +151,8 @@
                                 <input type="hidden" name="account_number" value="1">
                                 <input type="hidden" name="beneficiary" value="Water Incorporation">
                                 <input type="hidden" name="bank" value="Wells Fargo Bank">
-                                <input type="hidden" name="bank-account-number" value="B1801111555">
+                                <input type="hidden" name="bank-account-number" value="1801111777">
+                                <input type="hidden" name="bill_type" value="electricity">
                                 <button name="billPay" class="btn btn-primary btn-user btn-block mt-2">Pay</button>
                             </form>
 
@@ -190,7 +192,7 @@
                             <form id="accountPayForm3" class="form-inline" method="POST" action="billPay" style="display: none;">
                                 <div class="form-group mt-2">
                                     <label class="my-1 mr-2" for="account3">Account:</label>
-                                    <select class="custom-select my-1 mr-sm-2 form-control" id="account3">
+                                    <select class="custom-select my-1 mr-sm-2 form-control" id="account3" name ="customerAccount">
                                         <option selected>Choose your account</option>
                                         <c:forEach var="acc" items="${myAccounts}">
                                             <option
@@ -202,11 +204,12 @@
                                     </select>
                                 </div>
 
-                                <input type="hidden" name="billNumber" value="11111">
+                                <input type="hidden" name="billNumber" value="22222">
                                 <input type="hidden" name="account_number" value="1">
                                 <input type="hidden" name="beneficiary" value="Water Incorporation">
                                 <input type="hidden" name="bank" value="Wells Fargo Bank">
-                                <input type="hidden" name="bank-account-number" value="B1801111555">
+                                <input type="hidden" name="bank-account-number" value="1801111222">
+                                <input type="hidden" name="bill_type" value="credit card">
                                 <button name="billPay" class="btn btn-primary btn-user btn-block mt-2">Pay</button>
                             </form>
 

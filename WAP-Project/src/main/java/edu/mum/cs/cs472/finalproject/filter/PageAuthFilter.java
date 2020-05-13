@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(description = "PageAuthFilter", urlPatterns = {"/transfer", "/history", "/home"})
+@WebFilter(description = "PageAuthFilter", urlPatterns = {"/transfer", "/history", "/home", "/billPay"})
 public class PageAuthFilter extends HttpFilter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
