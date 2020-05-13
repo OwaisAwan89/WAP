@@ -89,13 +89,6 @@
     </div>
   </li> -->
 
-    <!-- Nav Item - Tables -->
-  <li class="nav-item">
-    <a class="nav-link" href="history">
-      <i class="fas fa-fw fa-table"></i>
-      <span>Transaction History</span></a>
-  </li>
-
   <li class="nav-item">
     <a class="nav-link" href="transfer">
       <i class="fas fa-fw fa-dollar-sign"></i>
@@ -106,6 +99,12 @@
     <a class="nav-link" href="billPay">
       <i class="fas fa-fw fa-calendar"></i>
       <span>Bill Pay</span></a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="history">
+      <i class="fas fa-fw fa-table"></i>
+      <span>Transaction History</span></a>
   </li>
 
 

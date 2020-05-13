@@ -53,14 +53,14 @@
 
             <div class="col-lg-6">
                 <!-- Collapsable Card Example -->
-                <div class="card shadow mb-4 water-bill-card">
+                <div class="card shadow mb-4 card1">
                     <!-- Card Header - Accordion -->
                     <a href="#collapseCardExample1" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-controls="collapseCardExample">
                         <h6 class="m-0 font-weight-bold text-primary">Water Bill </h6>
                     </a>
                     <!-- Card Content - Collapse -->
                     <div class="collapse" id="collapseCardExample1">
-                        <div class="card-body" style="margin-bottom: 20px;">
+                        <div class="card-body">
                             Water Incorporation
                             <br> BENEFICIARY BANK: Wells Fargo Bank
                             <br> BENEFICIARY ACCOUNT NUMBER: B1801111555
@@ -71,33 +71,33 @@
 
                                     <div class="input-group-append">
                                         <input type="text" name ="billNumber" class="form-control bg-light border-0 small" placeholder="Enter bill Number" aria-label="Search" aria-describedby="basic-addon2">
-                                        <button id="generateBill" type="button" class="btn btn-primary btn-user btn-block">Generate Bill</button>
+                                        <button id="generateBill1" type="button" class="btn btn-primary btn-user btn-block">Generate Bill</button>
                                     </div>
 
                                 </div>
                             </form>
-                            <form id="accountPayForm" class="form-inline float-left" method="POST" action="billPay" style="display: none;">
-                                <label class="my-1 mr-2" for="account">Account:</label>
-                                <select class="custom-select my-1 mr-sm-2" id="account">
-                                    <option selected>Choose your account</option>
-                                    <c:forEach var="acc" items="${myAccounts}">
-                                        <option
-                                                value="<c:out value="${acc.accountNumber}"/>"
-                                                <c:if test="${account==acc.accountNumber}">selected</c:if> >
-                                            <c:out value="${acc.user.firstName} ${acc.user.lastName} | ${acc.accountType} | ${acc.accountNumber}"/>
-                                        </option>
-                                    </c:forEach>
-                                </select>
-                                <br>
+                            <form id="accountPayForm1" class="form-inline" method="POST" action="billPay" style="display: none;">
+                                <div class="form-group mt-2">
+                                    <label class="my-1 mr-2" for="account">Account:</label>
+                                    <select class="custom-select my-1 mr-sm-2 form-control" id="account">
+                                        <option selected>Choose your account</option>
+                                        <c:forEach var="acc" items="${myAccounts}">
+                                            <option
+                                                    value="<c:out value="${acc.accountNumber}"/>"
+                                                    <c:if test="${account==acc.accountNumber}">selected</c:if> >
+                                                <c:out value="${acc.user.firstName} ${acc.user.lastName} | ${acc.accountType} | ${acc.accountNumber}"/>
+                                            </option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+
                                 <input type="hidden" name="billNumber" value="11111">
                                 <input type="hidden" name="account_number" value="1">
                                 <input type="hidden" name="beneficiary" value="Water Incorporation">
                                 <input type="hidden" name="bank" value="Wells Fargo Bank">
                                 <input type="hidden" name="bank-account-number" value="B1801111555">
-                                <button name="billPay" class="btn btn-primary btn-user btn-block">Pay</button>
+                                <button name="billPay" class="btn btn-primary btn-user btn-block mt-2">Pay</button>
                             </form>
-                            <p style="visibility: hidden">$5.00 <button class="btn btn-primary" type="button"></button></p>
-
                         </div>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
 
             <div class="col-lg-6">
                 <!-- Collapsable Card Example -->
-                <div class="card shadow mb-4">
+                <div class="card shadow mb-4 card2">
                     <!-- Card Header - Accordion -->
                     <a href="#collapseCardExample2" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-controls="collapseCardExample">
                         <h6 class="m-0 font-weight-bold text-primary">Electricity Bill</h6>
@@ -125,13 +125,35 @@
                                         <input type="text" name ="billNumber" class="form-control bg-light border-0 small" placeholder="Enter bill Number" aria-label="Search" aria-describedby="basic-addon2">
                                         <input type="hidden" name="beneficiary" value="Tesla Pvt. Ltd.">
                                         <input type="hidden" name="bank" value="Mid West Bank">
-                                        <button class="btn btn-primary btn-user btn-block">Generate Bill</button>
+                                        <button id="generateBill2" type="button" class="btn btn-primary btn-user btn-block">Generate Bill</button>
                                     </div>
 
                                 </div>
                             </form>
 
-                            <p style="visibility: hidden">$5.00 <button class="btn btn-primary" type="button"></button></p>
+                            <form id="accountPayForm2" class="form-inline" method="POST" action="billPay" style="display: none;">
+                                <div class="form-group mt-2">
+                                    <label class="my-1 mr-2" for="account2">Account:</label>
+                                    <select class="custom-select my-1 mr-sm-2 form-control" id="account2">
+                                        <option selected>Choose your account</option>
+                                        <c:forEach var="acc" items="${myAccounts}">
+                                            <option
+                                                    value="<c:out value="${acc.accountNumber}"/>"
+                                                    <c:if test="${account==acc.accountNumber}">selected</c:if> >
+                                                <c:out value="${acc.user.firstName} ${acc.user.lastName} | ${acc.accountType} | ${acc.accountNumber}"/>
+                                            </option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+
+                                <input type="hidden" name="billNumber" value="11111">
+                                <input type="hidden" name="account_number" value="1">
+                                <input type="hidden" name="beneficiary" value="Water Incorporation">
+                                <input type="hidden" name="bank" value="Wells Fargo Bank">
+                                <input type="hidden" name="bank-account-number" value="B1801111555">
+                                <button name="billPay" class="btn btn-primary btn-user btn-block mt-2">Pay</button>
+                            </form>
+
                         </div>
                     </div>
                 </div>
@@ -139,7 +161,7 @@
 
             <div class="col-lg-6">
                 <!-- Collapsable Card Example -->
-                <div class="card shadow mb-4">
+                <div class="card shadow mb-4 card3">
                     <!-- Card Header - Accordion -->
                     <a href="#collapseCardExample3" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-controls="collapseCardExample">
                         <h6 class="m-0 font-weight-bold text-primary">Credit Card Bill</h6>
@@ -159,13 +181,34 @@
                                         <input type="text" name ="billNumber" class="form-control bg-light border-0 small" placeholder="Enter bill Number" aria-label="Search" aria-describedby="basic-addon2">
                                         <input type="hidden" name="beneficiary" value="Discovery">
                                         <input type="hidden" name="bank" value="Mid West One Bank">
-                                        <button class="btn btn-primary btn-user btn-block">Generate Bill</button>
+                                        <button id="generateBill3" type="button" class="btn btn-primary btn-user btn-block">Generate Bill</button>
                                     </div>
 
                                 </div>
                             </form>
 
-                            <p style="visibility: hidden">$5.00 <button class="btn btn-primary" type="button"></button></p>
+                            <form id="accountPayForm3" class="form-inline" method="POST" action="billPay" style="display: none;">
+                                <div class="form-group mt-2">
+                                    <label class="my-1 mr-2" for="account3">Account:</label>
+                                    <select class="custom-select my-1 mr-sm-2 form-control" id="account3">
+                                        <option selected>Choose your account</option>
+                                        <c:forEach var="acc" items="${myAccounts}">
+                                            <option
+                                                    value="<c:out value="${acc.accountNumber}"/>"
+                                                    <c:if test="${account==acc.accountNumber}">selected</c:if> >
+                                                <c:out value="${acc.user.firstName} ${acc.user.lastName} | ${acc.accountType} | ${acc.accountNumber}"/>
+                                            </option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+
+                                <input type="hidden" name="billNumber" value="11111">
+                                <input type="hidden" name="account_number" value="1">
+                                <input type="hidden" name="beneficiary" value="Water Incorporation">
+                                <input type="hidden" name="bank" value="Wells Fargo Bank">
+                                <input type="hidden" name="bank-account-number" value="B1801111555">
+                                <button name="billPay" class="btn btn-primary btn-user btn-block mt-2">Pay</button>
+                            </form>
 
                         </div>
                     </div>
@@ -219,8 +262,19 @@
 <script>
 
     $(function () {
-        $("#generateBill").on("click", function () {
-            $("#accountPayForm").show();
+        $("#generateBill1").on("click", function () {
+            $(".card1 .card-body").css("height", 280);
+            $("#accountPayForm1").show();
+        });
+
+        $("#generateBill2").on("click", function () {
+            $(".card2 .card-body").css("height", 280);
+            $("#accountPayForm2").show();
+        });
+
+        $("#generateBill3").on("click", function () {
+            $(".card3 .card-body").css("height", 280);
+            $("#accountPayForm3").show();
         });
 
     });
