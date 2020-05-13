@@ -87,6 +87,7 @@
         $("#from").attr("disabled","disabled");
         $("#to").attr("disabled","disabled");
 
+        // get account transfer from
         $.ajax("api/accounts", {
             type: "GET",
             data_type: "json",
@@ -97,17 +98,8 @@
             if(data.code === 0) {
                 let from = $("#from");
                 for(let v of data.accounts) {
-                    let tag = "<option value=\"" +
-                            v.accountNumber +
-                            "\">" +
-                            v.user.firstName +
-                            " " +
-                            v.user.lastName +
-                            " | " +
-                            v.accountNumber +
-                            " | " +
-                            v.accountType +
-                            "</option>";
+                    let tag = "<option value=\"" + v.accountNumber + "\">" + v.user.firstName + " " + v.user.lastName
+                        + " | " + v.accountNumber + " | " + v.accountType + "</option>";
 
                     from.append(tag);
                 }
@@ -118,6 +110,7 @@
 
         });
 
+        // get account transfer to
         $.ajax("api/accounts", {
             type: "GET",
             data_type: "json",
@@ -128,17 +121,8 @@
             if(data.code === 0) {
                 let to = $("#to");
                 for(let v of data.accounts) {
-                    let tag = "<option value=\"" +
-                        v.accountNumber +
-                        "\">" +
-                        v.user.firstName +
-                        " " +
-                        v.user.lastName +
-                        " | " +
-                        v.accountNumber +
-                        " | " +
-                        v.accountType +
-                        "</option>";
+                    let tag = "<option value=\"" + v.accountNumber + "\">" + v.user.firstName + " " + v.user.lastName
+                        + " | " + v.accountNumber + " | " + v.accountType + "</option>";
 
                     to.append(tag);
                 }
@@ -149,6 +133,17 @@
 
         });
 
+        // remove the same account with from_account
+        $("#from").on("change", function (evt) {
+            let fromAccount = $("#from").val();
+            $("#to option").each(function () {
+                if($(this).attr("value") === fromAccount) {
+                    $(this).remove();
+                }
+            });
+        });
+
+        // submit transfer
         $("#transfer-form").on("submit", function (evt) {
             evt.preventDefault();
 
@@ -199,6 +194,7 @@
             });
         });
 
+        // transfer agin
         $("#transfer-again").on("click", function (evt) {
             $("#transfer-success").hide("slow");
             $("#transfer-form").show("slow");
