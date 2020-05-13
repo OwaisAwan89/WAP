@@ -76,8 +76,8 @@ public class BillPayController extends HttpServlet {
             ZonedDateTime zdt = LocalDateTime.now().atZone(zoneId);
             Date date = Date.from(zdt.toInstant());
             transactionSummary.setTransactionDate(date);
-            transactionSummary.setTransactionType(request.getParameter("bill_type") + " bill payment");
-            transactionSummary.setTransactionDesc("Debit");
+            transactionSummary.setTransactionType("bill payment");
+            transactionSummary.setTransactionDesc("Credit");
             Account accountFrom = accountDao.getAccount(customerAccountNumber);
             transactionSummary.setUser(accountFrom.getUser());
             TransactionSummaryDao transactionSummaryDao = new TransactionSummaryDao();
