@@ -85,6 +85,8 @@ public class BillPayController extends HttpServlet {
 
         }
 
+        request.setAttribute("showSuccess", true);
+
         request.setAttribute("response",false);
         int userId = (int)request.getAttribute("userId");
         myAccounts = AccountService.getInstance().getAccounts(userId);
