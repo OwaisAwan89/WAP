@@ -149,6 +149,9 @@
 <!-- Page level plugins -->
 <script src="<%=application.getContextPath() %>/js/chart.min.js"></script>
 
+<!-- Js cookie -->
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+
 
 <script type="text/javascript">
     /*<![CDATA[*/
@@ -272,6 +275,17 @@
 
     });
     /*]]>*/
+</script>
+
+
+<!-- common js function -->
+<script>
+    $(function() {
+        $("#quit").on("click", function() {
+            Cookies.remove('USER_ID', { path: '' });
+            location.href = "login";
+        });
+    });
 </script>
 
 </body>

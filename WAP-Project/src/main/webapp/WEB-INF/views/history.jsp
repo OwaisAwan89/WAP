@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!doctype html>
 <html lang="en">
@@ -64,7 +65,7 @@
                     <td><c:out value="${item.fromAccount}"/></td>
                     <td><c:out value="${item.toAccount}"/></td>
                     <td><c:out value="${item.transactionType}"/></td>
-                    <td><c:out value="${item.amount}"/></td>
+                    <td><fmt:formatNumber type="number" value="${item.amount}" pattern="#.00"/></td>
                     <td><c:out value="${item.transactionDesc}"/></td>
                     <td><c:out value="${item.transactionDate}"/></td>
                 </tr>
