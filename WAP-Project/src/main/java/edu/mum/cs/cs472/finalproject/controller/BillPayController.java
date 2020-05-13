@@ -41,9 +41,6 @@ public class BillPayController extends HttpServlet {
             // Get the Bill Payment Dao object to apply pay() function.
             BillPaymentDao billPaymentDao = new BillPaymentDao();
 
-            // Add dummy data for business account which only accept money.
-            billPaymentDao.initialiseCompanyDB();
-
             // Create a new object to keep it ready to write to table: bill_payment
             BillPayment waterBillPaymentObj = new BillPayment();
             waterBillPaymentObj.setBillAmount(billAmount);
@@ -75,15 +72,15 @@ public class BillPayController extends HttpServlet {
             ZonedDateTime zdt = LocalDateTime.now().atZone(zoneId);
             Date date = Date.from(zdt.toInstant());
             transactionSummary.setTransactionDate(date);
-            transactionSummary.setTransactionType("transfer");
-            transactionSummary.setTransactionDesc("DEBIT");
+            transactionSummary.setTransactionType("bill payment");
+            transactionSummary.setTransactionDesc("Debit");
             Account accountFrom = accountDao.getAccount(Long.parseLong(request.getParameter("account_number")));
             transactionSummary.setUser(accountFrom.getUser());
             TransactionSummaryDao transactionSummaryDao = new TransactionSummaryDao();
             transactionSummaryDao.saveTransaction(transactionSummary);
-            Account accountTo = accountDao.getAccount(111);// Bank Account number
-            transactionSummary.setUser(accountTo.getUser());
-            transactionSummaryDao.saveTransaction(transactionSummary);
+            //Account accountTo = accountDao.getAccount(111);// Bank Account number
+            //transactionSummary.setUser(accountTo.getUser());
+//            transactionSummaryDao.saveTransaction(transactionSummary);
 
         }
 

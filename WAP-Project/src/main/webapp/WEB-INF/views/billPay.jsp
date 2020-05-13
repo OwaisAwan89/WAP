@@ -22,7 +22,16 @@
 <html lang="en">
 
 <head>
-    <%@include file="/WEB-INF/fragments/cssSetUp.jsp"%>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="<%=application.getContextPath() %>/css/all.css" >
+    <link rel="stylesheet" type="text/css" href="<%=application.getContextPath() %>/css/sb-admin-2.css" >
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -57,19 +66,35 @@
                             <br> BENEFICIARY ACCOUNT NUMBER: B1801111555
                             <br><br>
 
-                            <form class="user" method="POST" action="billPay">
+                            <form class="user">
                                 <div class="input-group">
 
                                     <div class="input-group-append">
                                         <input type="text" name ="billNumber" class="form-control bg-light border-0 small" placeholder="Enter bill Number" aria-label="Search" aria-describedby="basic-addon2">
-                                        <input type="hidden" name="account_number" value="1">
-                                        <input type="hidden" name="beneficiary" value="Water Incorporation">
-                                        <input type="hidden" name="bank" value="Wells Fargo Bank">
-                                        <input type="hidden" name="bank-account-number" value="B1801111555">
                                         <button class="btn btn-primary btn-user btn-block">Generate Bill</button>
                                     </div>
 
                                 </div>
+                            </form>
+                            <form class="form-inline float-left" method="POST" action="billPay">
+                                <label class="my-1 mr-2" for="account">Account:</label>
+                                <select class="custom-select my-1 mr-sm-2" id="account">
+                                    <option selected>Choose your account</option>
+                                    <c:forEach var="acc" items="${myAccounts}">
+                                        <option
+                                                value="<c:out value="${acc.accountNumber}"/>"
+                                                <c:if test="${account==acc.accountNumber}">selected</c:if> >
+                                            <c:out value="${acc.user.firstName} ${acc.user.lastName} | ${acc.accountType} | ${acc.accountNumber}"/>
+                                        </option>
+                                    </c:forEach>
+                                </select>
+                                <br>
+                                <input type="hidden" name="billNumber" value="11111">
+                                <input type="hidden" name="account_number" value="1">
+                                <input type="hidden" name="beneficiary" value="Water Incorporation">
+                                <input type="hidden" name="bank" value="Wells Fargo Bank">
+                                <input type="hidden" name="bank-account-number" value="B1801111555">
+                                <button name="billPay" class="btn btn-primary btn-user btn-block">Pay</button>
                             </form>
                             <p style="visibility: hidden">$5.00 <button class="btn btn-primary" type="button"></button></p>
 
@@ -190,6 +215,7 @@
 
 <!-- Page level plugins -->
 <script src="<%=application.getContextPath() %>/js/chart.min.js"></script>
+
 
 </body>
 
