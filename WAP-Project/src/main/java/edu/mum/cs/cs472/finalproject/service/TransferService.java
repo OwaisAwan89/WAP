@@ -65,17 +65,13 @@ public class TransferService {
         transactionSummary.setTransactionDate(date);
         transactionSummary.setTransactionType("transfer");
 
-        if(userId == accountFrom.getUser().getId())
-            transactionSummary.setTransactionDesc("Credit");
-        else
-            transactionSummary.setTransactionDesc("Debit");
+
+        transactionSummary.setTransactionDesc("Credit");
         transactionSummary.setUser(accountFrom.getUser());
         transactionSummaryDao.saveTransaction(transactionSummary);
 
-        if(userId == accountFrom.getUser().getId())
-            transactionSummary.setTransactionDesc("Debit");
-        else
-            transactionSummary.setTransactionDesc("Credit");
+
+        transactionSummary.setTransactionDesc("Debit");
         transactionSummary.setUser(accountTo.getUser());
         transactionSummaryDao.saveTransaction(transactionSummary);
 

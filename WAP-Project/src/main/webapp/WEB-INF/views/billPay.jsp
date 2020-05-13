@@ -15,6 +15,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 
+<%@ page import="java.util.concurrent.ThreadLocalRandom" %>
+
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -70,7 +72,7 @@
                                 <div class="input-group">
 
                                     <div class="input-group-append">
-                                        <input type="text" name ="billNumber" class="form-control bg-light border-0 small" placeholder="Enter bill Number" aria-label="Search" aria-describedby="basic-addon2">
+                                        <input id="billNumber1" type="text" name ="billNumber" class="form-control bg-light border-0 small" placeholder="Enter bill Number" aria-label="Search" aria-describedby="basic-addon2">
                                         <button id="generateBill1" type="button" class="btn btn-primary btn-user btn-block">Generate Bill</button>
                                     </div>
 
@@ -79,9 +81,9 @@
                             <form id="accountPayForm1" class="form-inline" method="POST" action="billPay" style="display: none;">
                                 <div class="form-group mt-2">Total Bill: <%=ThreadLocalRandom.current().nextInt(15,75)%>&nbsp;&nbsp;</div>
                                 <div class="form-group mt-2">
-                                    <label class="my-1 mr-2" for="account">Pay From: </label>
-                                    <select class="custom-select my-1 mr-sm-2 form-control" id="account" name ="customerAccount">
-                                        <option selected>Choose your account</option>
+                                    <label class="my-1 mr-2" for="account1">Pay From: </label>
+                                    <select class="custom-select my-1 mr-sm-2 form-control" id="account1" name ="customerAccount">
+                                        <option selected value="">Choose your account</option>
                                         <c:forEach var="acc" items="${myAccounts}">
                                             <option
                                                     value="<c:out value="${acc.accountNumber}"/>"
@@ -124,7 +126,7 @@
                                 <div class="input-group">
 
                                     <div class="input-group-append">
-                                        <input type="text" name ="billNumber" class="form-control bg-light border-0 small" placeholder="Enter bill Number" aria-label="Search" aria-describedby="basic-addon2">
+                                        <input id="billNumber2" type="text" name ="billNumber" class="form-control bg-light border-0 small" placeholder="Enter bill Number" aria-label="Search" aria-describedby="basic-addon2">
                                         <input type="hidden" name="beneficiary" value="Tesla Pvt. Ltd.">
                                         <input type="hidden" name="bank" value="Mid West Bank">
                                         <button id="generateBill2" type="button" class="btn btn-primary btn-user btn-block">Generate Bill</button>
@@ -138,7 +140,7 @@
                                 <div class="form-group mt-2">
                                     <label class="my-1 mr-2" for="account2">Pay From: </label>
                                     <select class="custom-select my-1 mr-sm-2 form-control" id="account2" name ="customerAccount">
-                                        <option selected>Choose your account</option>
+                                        <option selected value="">Choose your account</option>
                                         <c:forEach var="acc" items="${myAccounts}">
                                             <option
                                                     value="<c:out value="${acc.accountNumber}"/>"
@@ -183,6 +185,7 @@
 
                                     <div class="input-group-append">
                                         <input type="text" name ="billNumber" class="form-control bg-light border-0 small" placeholder="Enter Credit Card Number" aria-label="Search" aria-describedby="basic-addon2">
+
                                         <input type="hidden" name="beneficiary" value="Discovery">
                                         <input type="hidden" name="bank" value="Mid West One Bank">
                                         <button id="generateBill3" type="button" class="btn btn-primary btn-user btn-block">Generate Bill</button>
@@ -196,7 +199,7 @@
                                 <div class="form-group mt-2">
                                     <label class="my-1 mr-2" for="account3">Pay From: </label>
                                     <select class="custom-select my-1 mr-sm-2 form-control" id="account3" name ="customerAccount">
-                                        <option selected>Choose your account</option>
+                                        <option selected value="">Choose your account</option>
                                         <c:forEach var="acc" items="${myAccounts}">
                                             <option
                                                     value="<c:out value="${acc.accountNumber}"/>"
@@ -261,22 +264,71 @@
 <script>
 
     $(function () {
+        // if last operation succeed, show a message
+        <% if(request.getAttribute("showSuccess") != null && (boolean)request.getAttribute("showSuccess")) {%>
+        Swal.fire("Congratulations! Your payment succeed!");
+        <% } %>
+
+        // bill number invalidation
         $("#generateBill1").on("click", function () {
+            if($("#billNumber1").val() === "") {
+                Swal.fire("Please enter your bill number");
+                return;
+            }
+
             $(".card1 .card-body").css("height", 280);
             $("#accountPayForm1").show();
         });
 
         $("#generateBill2").on("click", function () {
+            if($("#billNumber2").val() === "") {
+                Swal.fire("Please enter your bill number");
+                return;
+            }
+
             $(".card2 .card-body").css("height", 280);
             $("#accountPayForm2").show();
         });
 
         $("#generateBill3").on("click", function () {
+            if($("#billNumber3").val() === "") {
+                Swal.fire("Please enter your bill number");
+                return;
+            }
+
             $(".card3 .card-body").css("height", 280);
             $("#accountPayForm3").show();
         });
 
+        // form invalidation
+        $("#accountPayForm1").on('submit', function(evt) {
+            if($("#account1").val() === "") {
+                evt.preventDefault();
+                Swal.fire("Please select your account");
+                return;
+            }
+
+        });
+
+        $("#accountPayForm2").on('submit', function() {
+            if($("#account2").val() === "") {
+                evt.preventDefault();
+                Swal.fire("Please select your account");
+                return;
+            }
+        });
+
+        $("#accountPayForm3").on('submit', function() {
+            if($("#account3").val() === "") {
+                evt.preventDefault();
+                Swal.fire("Please select your account");
+                return;
+            }
+        });
+
     });
+
+
 
 </script>
 

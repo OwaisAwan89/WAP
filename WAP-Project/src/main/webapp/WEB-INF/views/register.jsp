@@ -68,6 +68,25 @@
         </div>
     </div>
 
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4 class="modal-title" id="myModalLabel">Success Message</h4>
+                </div>
+                <div class="modal-body">
+                    <p><span> You are successfully registered at MicroBank!.</span></p>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" href="login">Login Now</a>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
 </div>
 
 <!-- Bootstrap core JavaScript-->
@@ -79,6 +98,20 @@
 
 <!-- Custom scripts for all pages-->
 <script src="<%=application.getContextPath() %>/js/sb-admin-2.min.js"></script>
+
+<script type="text/javascript">
+    /*<![CDATA[*/
+
+    $(document).ready(function() {
+        var modelAttributeValue = "<%=request.getAttribute("Success")%>";
+        console.log("modelAttributeValue Success",modelAttributeValue);
+        if (modelAttributeValue === "true") {
+            $('#myModal').modal('show');
+        }
+    });
+
+    /*]]>*/
+</script>
 
 </body>
 

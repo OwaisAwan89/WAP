@@ -111,7 +111,10 @@ public class RegisterController extends HttpServlet {
             AccountDao accountDao = new AccountDao();
             accountDao.saveAccount(newAccount);
         }
-        response.sendRedirect("login");
+
+        request.setAttribute("Success",true);
+        request.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(request, response);
+       // response.sendRedirect("login");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
