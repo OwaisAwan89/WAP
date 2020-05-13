@@ -74,8 +74,12 @@ public class LoginController extends HttpServlet {
 			request.setAttribute("userId", loginUser.getId());
 
 			Cookie userCookie = new Cookie("USER_ID", Integer.toString(loginUser.getId()));
+			String fullName=loginUser.getFirstName();
+			Cookie userCookie2 = new Cookie("FULL_NAME", fullName);
 			userCookie.setMaxAge(60*60*24*7); //Store cookie for 7 days
+			userCookie2.setMaxAge(60*60*24*7); //Store cookie for 7 days
 			response.addCookie(userCookie);
+			response.addCookie(userCookie2);
 
 			response.sendRedirect("home");
 
