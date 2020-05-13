@@ -53,14 +53,14 @@
 
             <div class="col-lg-6">
                 <!-- Collapsable Card Example -->
-                <div class="card shadow mb-4">
+                <div class="card shadow mb-4 water-bill-card">
                     <!-- Card Header - Accordion -->
                     <a href="#collapseCardExample1" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-controls="collapseCardExample">
                         <h6 class="m-0 font-weight-bold text-primary">Water Bill </h6>
                     </a>
                     <!-- Card Content - Collapse -->
                     <div class="collapse" id="collapseCardExample1">
-                        <div class="card-body">
+                        <div class="card-body" style="margin-bottom: 20px;">
                             Water Incorporation
                             <br> BENEFICIARY BANK: Wells Fargo Bank
                             <br> BENEFICIARY ACCOUNT NUMBER: B1801111555
@@ -71,12 +71,12 @@
 
                                     <div class="input-group-append">
                                         <input type="text" name ="billNumber" class="form-control bg-light border-0 small" placeholder="Enter bill Number" aria-label="Search" aria-describedby="basic-addon2">
-                                        <button class="btn btn-primary btn-user btn-block">Generate Bill</button>
+                                        <button id="generateBill" type="button" class="btn btn-primary btn-user btn-block">Generate Bill</button>
                                     </div>
 
                                 </div>
                             </form>
-                            <form class="form-inline float-left" method="POST" action="billPay">
+                            <form id="accountPayForm" class="form-inline float-left" method="POST" action="billPay" style="display: none;">
                                 <label class="my-1 mr-2" for="account">Account:</label>
                                 <select class="custom-select my-1 mr-sm-2" id="account">
                                     <option selected>Choose your account</option>
@@ -215,6 +215,17 @@
 
 <!-- Page level plugins -->
 <script src="<%=application.getContextPath() %>/js/chart.min.js"></script>
+
+<script>
+
+    $(function () {
+        $("#generateBill").on("click", function () {
+            $("#accountPayForm").show();
+        });
+
+    });
+
+</script>
 
 
 </body>
