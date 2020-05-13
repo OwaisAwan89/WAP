@@ -79,19 +79,18 @@ public class TransactionSummaryDao {
         return count;
     }
 
-    public List<TransactionSummary> getTransactionSummary(Date firstDay, Date lastDay, int userId, String transType) {
+    public List<TransactionSummary> getTransactionSummary(Date firstDay, Date lastDay, int userId, String transDesc) {
         Transaction transaction = null;
         List<TransactionSummary> transactionHistory = null;
-        System.out.println("user IDD =>"+userId);
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String sql = "select * from transaction_summary ts WHERE ts.transaction_date BETWEEN  :firstDay AND :lastDay AND ts.user_id = :userId AND ts.transaction_type  = :transType";
+            String sql = "select * from transaction_summary ts WHERE ts.transaction_date BETWEEN  :firstDay AND :lastDay AND ts.user_id = :userId AND ts.transaction_desc  = :transDesc";
             NativeQuery query = session.createSQLQuery(sql);
             query.setParameter("firstDay", firstDay);
             query.setParameter("lastDay", lastDay);
             query.setParameter("userId", userId);
-            query.setParameter("transType", transType);
+            query.setParameter("transDesc", transDesc);
             query.addEntity(TransactionSummary.class);
-            System.out.println("query =>"+query.toString());
+            //System.out.println("query =>"+query.toString());
             transactionHistory =  query.list();
         } catch (Exception e) {
             if (transaction != null) {
@@ -99,7 +98,7 @@ public class TransactionSummaryDao {
             }
             e.printStackTrace();
         }
-        System.out.println("transactionHistory size =>"+transactionHistory.size());
+        System.out.println("transactionHistory type =>"+transDesc +" size "+transactionHistory.size());
         return transactionHistory;
     }
 }

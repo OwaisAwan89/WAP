@@ -42,7 +42,7 @@ public class HomeController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         int userId = (int)request.getAttribute("userId");
-        System.out.println("userIdAttribute userId =>"+userId);
+        System.out.println("userIdAttribute userId ========>"+userId);
 //        int userId =Integer.parseInt(userIdAttribute);
 //        int userId =1;
         int [] debitData= new int[12];
@@ -67,12 +67,12 @@ public class HomeController extends HttpServlet {
             cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
             Date lastDay = cal.getTime();
             int totalCurrentMonthDebit=0;int totalCurrentMonthCredit=0;
-            List<TransactionSummary> transactionHistoryCredit= transactionSummaryDao.getTransactionSummary(firstDay,lastDay,userId,"credit");
+            List<TransactionSummary> transactionHistoryCredit= transactionSummaryDao.getTransactionSummary(firstDay,lastDay,userId,"Credit");
             for (TransactionSummary history :transactionHistoryCredit) {
 
-                if(history.getTransactionDesc().equalsIgnoreCase("bill payment")){
+                if(history.getTransactionType().equalsIgnoreCase("bill payment")){
                     billPaymentTotal   +=history.getAmount();
-                }else if(history.getTransactionDesc().equalsIgnoreCase("fund transfer")){
+                }else if(history.getTransactionType().equalsIgnoreCase("transfer")){
                     fundTransferTotal +=history.getAmount();
                 }else{
                     otherSpendingTotal+=history.getAmount();
@@ -81,7 +81,7 @@ public class HomeController extends HttpServlet {
                 totalCurrentMonthCredit+=history.getAmount();
             }
 
-            List<TransactionSummary> transactionHistory= transactionSummaryDao.getTransactionSummary(firstDay,lastDay,userId,"debit");
+            List<TransactionSummary> transactionHistory= transactionSummaryDao.getTransactionSummary(firstDay,lastDay,userId,"Debit");
             for (TransactionSummary history :transactionHistory) {
                 totalCurrentMonthDebit+=history.getAmount();
                 totalDebit+=history.getAmount();
