@@ -111,7 +111,7 @@ public class RegisterController extends HttpServlet {
             AccountDao accountDao = new AccountDao();
             accountDao.saveAccount(newAccount);
         }
-        response.sendRedirect("home");
+        response.sendRedirect("login");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
