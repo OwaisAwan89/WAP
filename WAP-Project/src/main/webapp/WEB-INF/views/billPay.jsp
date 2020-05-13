@@ -56,7 +56,7 @@
                 <div class="card shadow mb-4 card1">
                     <!-- Card Header - Accordion -->
                     <a href="#collapseCardExample1" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-controls="collapseCardExample">
-                        <h6 class="m-0 font-weight-bold text-primary">Water Bill </h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Water Bill</h6>
                     </a>
                     <!-- Card Content - Collapse -->
                     <div class="collapse" id="collapseCardExample1">
@@ -77,8 +77,9 @@
                                 </div>
                             </form>
                             <form id="accountPayForm1" class="form-inline" method="POST" action="billPay" style="display: none;">
+                                <div class="form-group mt-2">Total Bill: <%=ThreadLocalRandom.current().nextInt(15,75)%>&nbsp;&nbsp;</div>
                                 <div class="form-group mt-2">
-                                    <label class="my-1 mr-2" for="account">Account:</label>
+                                    <label class="my-1 mr-2" for="account">Pay From: </label>
                                     <select class="custom-select my-1 mr-sm-2 form-control" id="account" name ="customerAccount">
                                         <option selected>Choose your account</option>
                                         <c:forEach var="acc" items="${myAccounts}">
@@ -133,8 +134,9 @@
                             </form>
 
                             <form id="accountPayForm2" class="form-inline" method="POST" action="billPay" style="display: none;">
+                                <div class="form-group mt-2">Total Bill: <%=ThreadLocalRandom.current().nextInt(15,75)%>&nbsp;&nbsp;</div>
                                 <div class="form-group mt-2">
-                                    <label class="my-1 mr-2" for="account2">Account:</label>
+                                    <label class="my-1 mr-2" for="account2">Pay From: </label>
                                     <select class="custom-select my-1 mr-sm-2 form-control" id="account2" name ="customerAccount">
                                         <option selected>Choose your account</option>
                                         <c:forEach var="acc" items="${myAccounts}">
@@ -190,8 +192,9 @@
                             </form>
 
                             <form id="accountPayForm3" class="form-inline" method="POST" action="billPay" style="display: none;">
+                                <div class="form-group mt-2">Total Bill: <%=ThreadLocalRandom.current().nextInt(15,75)%>&nbsp;&nbsp;</div>
                                 <div class="form-group mt-2">
-                                    <label class="my-1 mr-2" for="account3">Account:</label>
+                                    <label class="my-1 mr-2" for="account3">Pay From: </label>
                                     <select class="custom-select my-1 mr-sm-2 form-control" id="account3" name ="customerAccount">
                                         <option selected>Choose your account</option>
                                         <c:forEach var="acc" items="${myAccounts}">
