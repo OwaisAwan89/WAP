@@ -250,18 +250,7 @@
     </div>
 </div>-->
 
-
-<script src="<%=application.getContextPath() %>/js/jquery.min.js"></script>
-<script src="<%=application.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="<%=application.getContextPath() %>/js/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="<%=application.getContextPath() %>/js/sb-admin-2.min.js"></script>
-
-<!-- Page level plugins -->
-<script src="<%=application.getContextPath() %>/js/chart.min.js"></script>
+<%@include file="/WEB-INF/fragments/jsSetUp.jsp"%>
 
 <script>
 
