@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.util.concurrent.ThreadLocalRandom" %><%--
   Created by IntelliJ IDEA.
   User: bishwasmishra
   Date: 11/05/20
@@ -182,7 +182,7 @@
                                 <div class="input-group">
 
                                     <div class="input-group-append">
-                                        <input type="text" name ="billNumber" class="form-control bg-light border-0 small" placeholder="Enter bill Number" aria-label="Search" aria-describedby="basic-addon2">
+                                        <input type="text" name ="billNumber" class="form-control bg-light border-0 small" placeholder="Enter Credit Card Number" aria-label="Search" aria-describedby="basic-addon2">
                                         <input type="hidden" name="beneficiary" value="Discovery">
                                         <input type="hidden" name="bank" value="Mid West One Bank">
                                         <button id="generateBill3" type="button" class="btn btn-primary btn-user btn-block">Generate Bill</button>
