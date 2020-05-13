@@ -95,10 +95,10 @@ public class UserDao {
             if(user != null && user.getPassword().equals(password)) {
                 return true;
             }
-            System.out.println("validate 3 =>"+user.getPassword());
+
             // commit transaction
          //   transaction.commit();
-            System.out.println("validate 4 =>");
+
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();

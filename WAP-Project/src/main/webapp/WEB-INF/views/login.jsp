@@ -34,10 +34,10 @@
                                 </div>
                                 <form class="user"method="POST" action="login">
                                     <div class="form-group">
-                                        <input type="text" class="form-control form-control-user" id="username" name="username"  placeholder="Enter username...">
+                                        <input pattern="^[a-zA-Z1-9].*" title="Please enter user name." type="text" class="form-control form-control-user" id="username" name="username"  placeholder="Enter username..." required>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password">
+                                        <input pattern="^[a-zA-Z1-9].*" title="Please enter password." type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password" required>
                                     </div>
 
                                     <button class="btn btn-primary btn-user btn-block" type="submit">Login</button>
@@ -58,6 +58,25 @@
 
     </div>
 
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <h4 class="modal-title" id="myModalLabel">Error Message</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p><span> You have entered incorrect user name or password.</span></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+
 </div>
 
 <!-- Bootstrap core JavaScript-->
@@ -69,6 +88,21 @@
 
 <!-- Custom scripts for all pages-->
 <script src="<%=application.getContextPath() %>/js/sb-admin-2.min.js"></script>
+
+<script type="text/javascript">
+    /*<![CDATA[*/
+
+    $(document).ready(function() {
+        var modelAttributeValue = "<%=request.getAttribute("error")%>";
+        console.log("modelAttributeValue error",modelAttributeValue);
+        if (modelAttributeValue === "true") {
+            $('#myModal').modal('show');
+        }
+    });
+
+    /*]]>*/
+</script>
+
 
 </body>
 

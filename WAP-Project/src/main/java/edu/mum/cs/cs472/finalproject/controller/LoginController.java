@@ -81,7 +81,7 @@ public class LoginController extends HttpServlet {
 
 		}else {
 //			throw new Exception("Login not successful..");
-			request.setAttribute("response",false);
+			request.setAttribute("error",true);
 			request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
 		}
 	}
